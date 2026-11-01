@@ -87,11 +87,13 @@ export function Hero() {
             </a>
           </div>
 
-          <p className="flex items-center gap-2 text-sm text-white/70">
-            <span className="h-2 w-2 rounded-full bg-verde" />
-            Eleito com a confiança de{' '}
-            <strong className="font-semibold text-white">1.586 caraguatatubenses</strong>{' '}
-            — e trabalhando para honrar cada voto.
+          <p className="flex max-w-sm items-start gap-2 text-sm text-white/70">
+            <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-verde" />
+            <span>
+              Eleito com a confiança de{' '}
+              <strong className="font-semibold text-white">1.586 caraguatatubenses</strong>{' '}
+              — e trabalhando para honrar cada voto.
+            </span>
           </p>
         </div>
 

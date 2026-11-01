@@ -39,14 +39,14 @@ export const metadata: Metadata = {
     title: "Maurílio Moreira — Vereador de Caraguatatuba",
     description:
       "Um mandato de resultado: pé no bairro, fiscalização firme e respeito a quem confiou o voto.",
-    images: [{ url: "/maurilio-hero.png", width: 1133, height: 1396, alt: "Vereador Maurílio Moreira" }],
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Maurílio Moreira — Vereador de Caraguatatuba" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Maurílio Moreira — Vereador de Caraguatatuba",
     description:
       "Um mandato de resultado: pé no bairro, fiscalização firme e respeito a quem confiou o voto.",
-    images: ["/maurilio-hero.png"],
+    images: ["/og.png"],
   },
 };
 
