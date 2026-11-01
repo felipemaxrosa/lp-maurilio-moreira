@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { nav } from "@/lib/content";
 import { whatsappLink, DEFAULT_WA_MESSAGE } from "@/lib/whatsapp";
@@ -18,11 +19,7 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const go = (href: string) => (e: React.MouseEvent) => {
-    e.preventDefault();
-    setOpen(false);
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
-  };
+  const close = () => setOpen(false);
 
   return (
     <header
@@ -32,7 +29,7 @@ export function Header() {
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:h-20 lg:px-8">
         {/* Logo */}
-        <a href="#inicio" onClick={go("#inicio")} className="flex items-center gap-3" aria-label="Maurílio Moreira — início">
+        <Link href="/" onClick={close} className="flex items-center gap-3" aria-label="Maurílio Moreira — início">
           <Image
             src="/brasao-caraguatatuba.png"
             alt="Brasão de Caraguatatuba"
@@ -45,19 +42,18 @@ export function Header() {
             <span className="font-display text-base font-extrabold tracking-tight text-white">Maurílio Moreira</span>
             <span className="u-eyebrow mt-0.5 text-[0.62rem] text-ciano">Vereador · AGIR</span>
           </span>
-        </a>
+        </Link>
 
         {/* Nav desktop */}
         <nav className="hidden items-center gap-8 lg:flex">
           {nav.map((item) => (
-            <a
+            <Link
               key={item.href}
               href={item.href}
-              onClick={go(item.href)}
               className="text-sm font-semibold text-white/85 transition-colors hover:text-ciano"
             >
               {item.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
@@ -89,14 +85,14 @@ export function Header() {
         <div className="border-t border-white/10 bg-petroleo/98 backdrop-blur-md lg:hidden">
           <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-4 sm:px-6">
             {nav.map((item) => (
-              <a
+              <Link
                 key={item.href}
                 href={item.href}
-                onClick={go(item.href)}
+                onClick={close}
                 className="rounded-md px-3 py-3 text-base font-semibold text-white/90 transition-colors hover:bg-white/10 hover:text-ciano"
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
             <a
               href={whatsappLink(DEFAULT_WA_MESSAGE)}

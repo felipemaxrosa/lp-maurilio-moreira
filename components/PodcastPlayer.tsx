@@ -1,14 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import { Play } from "lucide-react";
+import Link from "next/link";
+import { Play, ArrowRight } from "lucide-react";
 import { YoutubeIcon } from "@/components/ui/BrandIcons";
 import type { Episode } from "@/lib/content";
 
-type Props = { episodes: Episode[]; channelUrl: string };
+type Props = {
+  episodes: Episode[];
+  channelUrl: string;
+  /** false = modo teaser (home): só o destaque + botões, sem a playlist lateral. */
+  showPlaylist?: boolean;
+  /** No teaser, link para a página completa do podcast. */
+  moreHref?: string;
+};
 
 /** Player do "Maurílio Convida": fachada leve (thumb + play) que só carrega o iframe ao clicar. */
-export function PodcastPlayer({ episodes, channelUrl }: Props) {
+export function PodcastPlayer({ episodes, channelUrl, showPlaylist = true, moreHref }: Props) {
   const [active, setActive] = useState(0);
   const [playing, setPlaying] = useState(false);
   const current = episodes[active];
@@ -19,7 +27,7 @@ export function PodcastPlayer({ episodes, channelUrl }: Props) {
   };
 
   return (
-    <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.9fr_1fr]">
+    <div className={`grid grid-cols-1 gap-6 ${showPlaylist ? "lg:grid-cols-[1.9fr_1fr]" : ""}`}>
       {/* Destaque */}
       <div className="relative aspect-video overflow-hidden rounded-2xl border border-white/10 bg-dark-700">
         {playing ? (
@@ -63,52 +71,76 @@ export function PodcastPlayer({ episodes, channelUrl }: Props) {
         )}
       </div>
 
-      {/* Playlist + inscrição */}
-      <div className="flex flex-col gap-4">
-        <span className="u-eyebrow text-white/50">Episódios recentes</span>
-        <ul className="flex flex-col gap-3">
-          {episodes.map((ep, i) => (
-            <li key={ep.id}>
-              <button
-                type="button"
-                onClick={() => open(i)}
-                aria-current={i === active ? "true" : undefined}
-                className={`group flex w-full items-center gap-4 rounded-xl border p-3 text-left transition-colors ${
-                  i === active
-                    ? "border-ciano/50 bg-white/10"
-                    : "border-white/10 bg-white/5 hover:border-ciano/40 hover:bg-white/10"
-                }`}
-              >
-                <span className="relative grid h-14 w-24 shrink-0 place-items-center overflow-hidden rounded-lg bg-petroleo-900">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={`https://i.ytimg.com/vi/${ep.youtubeId}/mqdefault.jpg`}
-                    alt=""
-                    loading="lazy"
-                    className="absolute inset-0 h-full w-full object-cover opacity-80"
-                  />
-                  <span className="relative z-10 grid h-8 w-8 place-items-center rounded-full bg-black/55 text-white transition-colors group-hover:bg-[#FF0000]">
-                    <Play className="h-4 w-4 translate-x-px" fill="currentColor" />
+      {showPlaylist ? (
+        /* Playlist + inscrição */
+        <div className="flex flex-col gap-4">
+          <span className="u-eyebrow text-white/50">Episódios recentes</span>
+          <ul className="flex flex-col gap-3">
+            {episodes.map((ep, i) => (
+              <li key={ep.id}>
+                <button
+                  type="button"
+                  onClick={() => open(i)}
+                  aria-current={i === active ? "true" : undefined}
+                  className={`group flex w-full items-center gap-4 rounded-xl border p-3 text-left transition-colors ${
+                    i === active
+                      ? "border-ciano/50 bg-white/10"
+                      : "border-white/10 bg-white/5 hover:border-ciano/40 hover:bg-white/10"
+                  }`}
+                >
+                  <span className="relative grid h-14 w-24 shrink-0 place-items-center overflow-hidden rounded-lg bg-petroleo-900">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={`https://i.ytimg.com/vi/${ep.youtubeId}/mqdefault.jpg`}
+                      alt=""
+                      loading="lazy"
+                      className="absolute inset-0 h-full w-full object-cover opacity-80"
+                    />
+                    <span className="relative z-10 grid h-8 w-8 place-items-center rounded-full bg-black/55 text-white transition-colors group-hover:bg-[#FF0000]">
+                      <Play className="h-4 w-4 translate-x-px" fill="currentColor" />
+                    </span>
                   </span>
-                </span>
-                <span className="flex min-w-0 flex-col">
-                  <span className="truncate font-display text-sm font-bold text-white">{ep.title}</span>
-                  <span className="truncate text-xs text-white/55">{ep.guest}</span>
-                </span>
-              </button>
-            </li>
-          ))}
-        </ul>
-        <a
-          href={channelUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-1 inline-flex items-center justify-center gap-2 rounded-md bg-[#FF0000] px-5 py-3.5 text-base font-bold text-white transition-transform hover:-translate-y-0.5"
-        >
-          <YoutubeIcon className="h-5 w-5" />
-          Inscreva-se no Canal Oficial
-        </a>
-      </div>
+                  <span className="flex min-w-0 flex-col">
+                    <span className="truncate font-display text-sm font-bold text-white">{ep.title}</span>
+                    <span className="truncate text-xs text-white/55">{ep.guest}</span>
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ul>
+          <a
+            href={channelUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-1 inline-flex items-center justify-center gap-2 rounded-md bg-[#FF0000] px-5 py-3.5 text-base font-bold text-white transition-transform hover:-translate-y-0.5"
+          >
+            <YoutubeIcon className="h-5 w-5" />
+            Inscreva-se no Canal Oficial
+          </a>
+        </div>
+      ) : (
+        /* Teaser: botões abaixo do destaque */
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+          {moreHref && (
+            <Link
+              href={moreHref}
+              className="inline-flex items-center justify-center gap-2 rounded-md border border-white/25 px-5 py-3.5 text-base font-semibold text-white transition-colors hover:border-ciano hover:text-ciano"
+            >
+              Ver todos os episódios
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          )}
+          <a
+            href={channelUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 rounded-md bg-[#FF0000] px-5 py-3.5 text-base font-bold text-white transition-transform hover:-translate-y-0.5"
+          >
+            <YoutubeIcon className="h-5 w-5" />
+            Inscreva-se no Canal Oficial
+          </a>
+        </div>
+      )}
     </div>
   );
 }

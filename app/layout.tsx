@@ -1,6 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { Montserrat, Inter } from "next/font/google";
 import "./globals.css";
+import { SmoothScroll } from "@/components/SmoothScroll";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
+import { FloatingWhatsapp } from "@/components/FloatingWhatsapp";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -59,7 +63,13 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="pt-BR" className={`${montserrat.variable} ${inter.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-white text-ink">{children}</body>
+      <body className="min-h-full flex flex-col bg-white text-ink">
+        <SmoothScroll />
+        <Header />
+        <main className="flex-1">{children}</main>
+        <Footer />
+        <FloatingWhatsapp />
+      </body>
     </html>
   );
 }

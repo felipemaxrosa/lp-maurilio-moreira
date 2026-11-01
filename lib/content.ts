@@ -18,12 +18,12 @@ export const socials = {
 };
 
 export const nav = [
-  { label: 'Início', href: '#inicio' },
-  { label: 'Sobre', href: '#sobre' },
-  { label: 'Bandeiras', href: '#bandeiras' },
-  { label: 'Mandato', href: '#mandato' },
-  { label: 'Podcast', href: '#podcast' },
-  { label: 'Gabinete', href: '#gabinete' },
+  { label: 'Início', href: '/#inicio' },
+  { label: 'Sobre', href: '/#sobre' },
+  { label: 'Bandeiras', href: '/#bandeiras' },
+  { label: 'Mandato', href: '/mandato' },
+  { label: 'Podcast', href: '/podcast' },
+  { label: 'Gabinete', href: '/#gabinete' },
 ];
 
 export type Bandeira = {

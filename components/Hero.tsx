@@ -26,11 +26,6 @@ export function Hero() {
   );
   const glowY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 90]);
 
-  const scrollTo = (href: string) => (e: React.MouseEvent) => {
-    e.preventDefault();
-    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <section
       id="inicio"
@@ -78,8 +73,7 @@ export function Hero() {
               Fale com o gabinete
             </a>
             <a
-              href="#podcast"
-              onClick={scrollTo('#podcast')}
+              href="/podcast"
               className="inline-flex items-center justify-center gap-2 rounded-md border border-white/30 px-6 py-4 text-base font-semibold text-white transition-colors hover:border-ciano hover:text-ciano"
             >
               <Play className="h-4 w-4" />
