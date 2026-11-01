@@ -1,0 +1,151 @@
+@import "tailwindcss";
+
+/* ============================================================
+   MAURÍLIO MOREIRA — Design tokens, tipografia e transições.
+   Regra do projeto: este arquivo contém SOMENTE tokens, fontes,
+   tipografia base e keyframes/transições. Todo layout e aparência
+   de componente fica nas classes Tailwind inline dos componentes.
+   ============================================================ */
+
+/* ---- Paleta (marca teal/AGIR) ---- */
+@theme {
+  /* Petróleo / teal — confiança, institucional */
+  --color-petroleo: #0c4a52;
+  --color-petroleo-800: #083b42;
+  --color-petroleo-900: #062c31;
+  --color-teal: #12747e;
+  --color-teal-600: #0f666f;
+
+  /* Ciano AGIR — destaque e brilho (nunca em texto corrido) */
+  --color-ciano: #5ce1e6;
+  --color-ciano-bright: #7df0f4;
+
+  /* Verde — ação e conquista */
+  --color-verde: #10b981;
+  --color-whatsapp: #25d366;
+  --color-whatsapp-ink: #07351c;
+
+  /* Superfícies claras */
+  --color-mist: #eef4f4;
+  --color-mist-200: #e3eded;
+  --color-line: #d9e5e5;
+
+  /* Modo escuro — estúdio do podcast */
+  --color-dark: #07171a;
+  --color-dark-700: #0a1f24;
+
+  /* Texto — chumbo com leve teal, nunca preto puro */
+  --color-ink: #16262b;
+  --color-ink-soft: #4c5f64;
+
+  /* Raios (Direção A: cantos contidos) */
+  --radius-card: 0.5rem;
+}
+
+/* ---- Fontes (variáveis vindas do next/font) ---- */
+@theme inline {
+  --font-display: var(--font-montserrat), "Segoe UI", system-ui, sans-serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+}
+
+/* ---- Base ---- */
+:root {
+  color-scheme: light;
+  --wa-ring: 0 0 0 4px color-mix(in srgb, var(--color-whatsapp) 35%, transparent);
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+  text-size-adjust: 100%;
+}
+
+body {
+  background: #ffffff;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Tipografia base — títulos no display, pesados e firmes */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  margin: 0;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* Rótulos/eyebrows em caixa-alta com tracking (identidade Direção A).
+   Em @layer components para que utilitários text-* / tracking- do Tailwind vençam. */
+@layer components {
+  .u-eyebrow {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+}
+
+/* Foco acessível visível */
+:focus-visible {
+  outline: 3px solid var(--color-teal);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+::selection {
+  background: var(--color-ciano);
+  color: var(--color-petroleo-900);
+}
+
+/* ============================================================
+   Transições / keyframes
+   ============================================================ */
+
+/* Skeleton loader (mídia pesada) */
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+.u-skeleton {
+  background: linear-gradient(90deg, var(--color-mist-200) 25%, var(--color-mist) 37%, var(--color-mist-200) 63%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+}
+
+/* Brilho pulsante do ciano (detalhes AGIR) */
+@keyframes agir-pulse {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+.u-agir-pulse { animation: agir-pulse 3s ease-in-out infinite; }
+
+/* Leve flutuação (elementos decorativos da hero) */
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.u-float { animation: float-soft 6s ease-in-out infinite; }
+
+/* Respeita quem prefere menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

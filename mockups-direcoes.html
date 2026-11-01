@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Direções Maurílio Moreira</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800;900&family=Fraunces:opsz,wght@9..144,600;9..144,900&family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800;900&family=Source+Sans+3:wght@400;600;700&display=swap">
+
+<style>
+  /* Layout: página-chrome clara/escura + 3 "telas" de mockup empilhadas, cada uma um mundo de cor próprio */
+  :root{
+    --bg:#eef4f4; --surface:#ffffff; --fg:#1b2a2e; --muted:#59696d;
+    --border:#d6e3e3; --accent:#12747e; --accent-ink:#0c4a52;
+    --ff-ui:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+    --ff-mont:'Montserrat',system-ui,-apple-system,sans-serif;
+    --ff-serif:'Fraunces',Georgia,'Times New Roman',serif;
+    --ff-arch:'Archivo',system-ui,'Arial Narrow',sans-serif;
+    --ff-source:'Source Sans 3',system-ui,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --bg:#06161a; --surface:#0c2026; --fg:#e8f1f1; --muted:#9bb0b2;
+    --border:#1a363c; --accent:#5ce1e6; --accent-ink:#8af0f3; color-scheme:dark;
+  }}
+  :root[data-theme="dark"]{
+    --bg:#06161a; --surface:#0c2026; --fg:#e8f1f1; --muted:#9bb0b2;
+    --border:#1a363c; --accent:#5ce1e6; --accent-ink:#8af0f3; color-scheme:dark;
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--bg);color:var(--fg);font-family:var(--ff-ui);line-height:1.5;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{text-wrap:balance;margin:0}
+  p{margin:0}
+  img{max-width:100%}
+  a{color:inherit}
+
+  .wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));max-width:1080px;margin:0 auto}
+
+  /* Header */
+  .top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--surface) 90%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+  .top .wrap{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding-block:12px}
+  .brand{font-family:var(--ff-mont);font-weight:800;letter-spacing:-.01em;font-size:15px}
+  .brand b{color:var(--accent)}
+  .jump{display:flex;gap:8px;margin-left:auto;flex-wrap:wrap}
+  .jump a{font-size:12px;font-weight:600;text-decoration:none;padding:6px 11px;border:1px solid var(--border);border-radius:999px;color:var(--muted);white-space:nowrap}
+  .jump a:hover{border-color:var(--accent);color:var(--accent)}
+
+  /* Intro */
+  .intro{padding-block:26px 6px}
+  .eyebrow-pg{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+  .intro h1{font-family:var(--ff-mont);font-weight:900;font-size:clamp(26px,5vw,38px);letter-spacing:-.02em;margin:.35em 0 .3em}
+  .intro p{color:var(--muted);max-width:60ch;font-size:15px}
+
+  /* Bloco de cada direção */
+  .panel{padding-block:22px 10px}
+  .label{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:4px}
+  .tag{font-family:var(--ff-mont);font-weight:800;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:var(--accent-ink);padding:4px 9px;border-radius:6px}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tag{color:#04171a;background:var(--accent)}}
+  :root[data-theme="dark"] .tag{color:#04171a;background:var(--accent)}
+  .label h2{font-family:var(--ff-mont);font-weight:800;font-size:20px;letter-spacing:-.01em}
+  .fonts{color:var(--muted);font-size:13px;margin:2px 0 14px}
+  .fonts b{color:var(--fg);font-weight:600}
+
+  /* Moldura do mockup */
+  .mock{border-radius:18px;overflow:hidden;box-shadow:0 24px 60px -30px rgba(2,22,26,.6),0 2px 6px rgba(2,22,26,.12)}
+  .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:0;align-items:stretch}
+  .copy{padding:clamp(22px,3.2vw,40px);display:flex;flex-direction:column;gap:16px;min-width:0;justify-content:center}
+  .cta{display:flex;gap:10px;flex-wrap:wrap}
+  .btn{font-family:var(--ff-ui);font-weight:700;font-size:14px;padding:12px 18px;border-radius:10px;border:0;cursor:pointer;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
+  .btn-wa{background:#25d366;color:#07351c}
+  .btn-ghost{background:transparent}
+  .micro{font-size:13px;display:flex;align-items:center;gap:7px}
+  .dot{color:#25d366}
+  .h1{font-size:clamp(27px,3.7vw,43px);line-height:1.05;letter-spacing:-.02em}
+  .eb{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;display:inline-flex;align-items:center;gap:8px}
+  .sub{font-size:15px;line-height:1.55;max-width:42ch}
+
+  /* Coluna visual: gradiente + foto recortada + card */
+  .visual{position:relative;min-width:0;min-height:400px;overflow:hidden}
+  .portrait{position:absolute;bottom:0;right:0;height:98%;width:auto;max-width:62%;object-fit:contain;object-position:bottom right;filter:drop-shadow(0 16px 20px rgba(0,0,0,.35));z-index:1}
+  .card{position:absolute;left:18px;bottom:18px;z-index:2;max-width:60%;padding:15px 17px;display:flex;flex-direction:column;gap:7px}
+  .selo{font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;display:inline-flex;align-items:center;gap:6px;align-self:flex-start;padding:5px 10px;border-radius:999px}
+  .card h3{font-size:15px;line-height:1.2;letter-spacing:-.01em}
+  .card .meta{font-size:11.5px;opacity:.72}
+
+  /* specimen tipográfico */
+  .spec{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;padding:14px clamp(16px,2.4vw,26px)}
+  .spec .big{font-size:30px;line-height:1}
+  .spec .lab{font-size:12px;opacity:.72}
+
+  /* ====== A — Institucional Firme (Montserrat + Inter) ====== */
+  .A{background:#0c4a52}
+  .A .copy{background:#0c4a52;color:#eafafa}
+  .A .eb{color:#5ce1e6}
+  .A .eb::before{content:"";width:22px;height:3px;background:#5ce1e6;display:inline-block}
+  .A .h1{font-family:var(--ff-mont);font-weight:900;color:#fff}
+  .A .h1 em{font-style:normal;color:#5ce1e6}
+  .A .sub{color:#bfe2e3}
+  .A .btn-ghost{border:1.5px solid #ffffff55;color:#fff}
+  .A .micro{color:#bfe2e3}
+  .A .visual{background:linear-gradient(160deg,#0e5962,#0a3b43)}
+  .A .card{background:#fff;color:#13282c;border-left:4px solid #25d366;border-radius:4px}
+  .A .selo{background:#e7f7ee;color:#0b7a3e}
+  .A .btn{border-radius:6px}
+  .A .spec{background:#0a3b43;color:#eafafa}
+  .A .spec .big{font-family:var(--ff-mont);font-weight:900}
+
+  /* ====== B — Raiz Caiçara (Fraunces + Source Sans 3) ====== */
+  .B{background:#e9f2ef}
+  .B .copy{background:#f3efe4;color:#223a36}
+  .B .eb{color:#12747e;font-family:var(--ff-source);letter-spacing:.1em}
+  .B .h1{font-family:var(--ff-serif);font-weight:900;color:#0e4d54}
+  .B .h1 em{font-style:italic;color:#1a8a7e}
+  .B .sub{font-family:var(--ff-source);color:#45605b}
+  .B .btn{font-family:var(--ff-source);border-radius:999px}
+  .B .btn-ghost{border:1.5px solid #0e4d5455;color:#0e4d54}
+  .B .micro{color:#45605b;font-family:var(--ff-source)}
+  .B .visual{background:radial-gradient(120% 120% at 70% 15%,#1a8a7e,#0e4d54)}
+  .B .card{background:#fffdf7;color:#223a36;border:1px solid #e3d9c2;border-radius:16px;box-shadow:0 10px 30px -18px rgba(14,77,84,.55)}
+  .B .card h3{font-family:var(--ff-serif);font-weight:600}
+  .B .selo{background:#e7f7ee;color:#0b7a3e}
+  .B .spec{background:#ece6d8;color:#223a36}
+  .B .spec .big{font-family:var(--ff-serif);font-weight:900;color:#0e4d54}
+
+  /* ====== C — Movimento AGIR (Archivo + Inter) ====== */
+  .C{background:#04141a}
+  .C .copy{background:linear-gradient(130deg,#0b2b32,#05171c);color:#dff6f7}
+  .C .eb{color:#5ce1e6}
+  .C .eb::before{content:"\25C8";color:#5ce1e6;font-size:11px}
+  .C .h1{font-family:var(--ff-arch);font-weight:900;text-transform:uppercase;letter-spacing:-.015em;color:#fff}
+  .C .h1 em{font-style:normal;color:#5ce1e6;text-shadow:0 0 26px #5ce1e6aa}
+  .C .sub{color:#a9cfd2}
+  .C .btn{border-radius:8px}
+  .C .btn-ghost{border:1.5px solid #5ce1e677;color:#5ce1e6}
+  .C .micro{color:#a9cfd2}
+  .C .visual{background:linear-gradient(150deg,#0a2a31,#05161b)}
+  .C .card{background:rgba(92,225,230,.08);color:#eafafa;border:1px solid #5ce1e644;border-radius:12px;backdrop-filter:blur(6px);box-shadow:0 18px 40px -24px #5ce1e555}
+  .C .card h3{font-family:var(--ff-arch);font-weight:800}
+  .C .selo{background:#0d3a2a;color:#49e39a;border:1px solid #49e39a55}
+  .C .spec{background:#05161b;color:#dff6f7}
+  .C .spec .big{font-family:var(--ff-arch);font-weight:900;text-transform:uppercase}
+
+  .foot{padding-block:26px 48px;color:var(--muted);font-size:14px}
+  .foot b{color:var(--fg);font-weight:600}
+
+  @media (max-width:720px){
+    .hero{grid-template-columns:1fr}
+    .visual{min-height:0;order:2;padding-bottom:0}
+    .portrait{position:relative;height:auto;max-height:320px;max-width:80%;right:auto;display:block;margin:18px auto 0}
+    .card{position:static;max-width:none;margin:16px}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+  .btn,.jump a{transition:transform .15s ease,filter .15s ease,border-color .15s ease,color .15s ease}
+  .btn:hover{filter:brightness(1.05);transform:translateY(-1px)}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <span class="brand">Maurílio <b>Moreira</b></span>
+    <nav class="jump">
+      <a href="#a">A · Institucional</a>
+      <a href="#b">B · Raiz Caiçara</a>
+      <a href="#c">C · Movimento</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="intro">
+    <div class="eyebrow-pg">3 direções de UI &amp; tipografia</div>
+    <h1>Qual cara combina com o mandato?</h1>
+    <p>Mesma marca (teal/AGIR), mesma copy, mesma foto e mesmo card do placar nas três — muda a <b>personalidade</b> e o <b>par de fontes</b>. Role, compare e me diga qual leva.</p>
+  </section>
+
+  <!-- A -->
+  <section class="panel" id="a">
+    <div class="label"><span class="tag">Direção A</span><h2>Institucional Firme</h2></div>
+    <p class="fonts">Fontes: <b>Montserrat</b> (títulos) + <b>Inter</b> (texto) · Sensação: sério, estruturado, “entrega resultado”.</p>
+    <div class="mock A">
+      <div class="hero">
+        <div class="copy">
+          <span class="eb">Legislatura 2025–2028 · Caraguatatuba/SP</span>
+          <h1 class="h1">Trabalho, Fé e <em>Raízes Caiçaras</em> por Caraguatatuba.</h1>
+          <p class="sub">Um mandato de resultado: pé no bairro, fiscalização firme e respeito a quem confiou o voto.</p>
+          <div class="cta">
+            <a class="btn btn-wa" href="#a">Falar no WhatsApp</a>
+            <a class="btn btn-ghost" href="#a">🎬 Conheça o Podcast</a>
+          </div>
+          <span class="micro"><span class="dot">●</span> Eleito com a confiança de 1.586 caraguatatubenses.</span>
+        </div>
+        <div class="visual">
+          <img class="portrait" src="inital_assets/Retrato%20corporativo%20masculino%20com%20fundo%20transparente.png" alt="Vereador Maurílio Moreira, sorrindo, de terno azul e camisa branca">
+          <div class="card">
+            <span class="selo">✓ Aprovada por unanimidade</span>
+            <h3>Independência para mulheres vítimas de violência</h3>
+            <span class="meta">Lei nº 32/26 · 19/05/2026</span>
+          </div>
+        </div>
+      </div>
+      <div class="spec"><span class="big">Aa</span><span class="lab">Montserrat · Black 900 — títulos de impacto</span></div>
+    </div>
+  </section>
+
+  <!-- B -->
+  <section class="panel" id="b">
+    <div class="label"><span class="tag">Direção B</span><h2>Raiz Caiçara</h2></div>
+    <p class="fonts">Fontes: <b>Fraunces</b> (títulos, serifa) + <b>Source Sans 3</b> (texto) · Sensação: humano, caloroso, “um de nós”.</p>
+    <div class="mock B">
+      <div class="hero">
+        <div class="copy">
+          <span class="eb">Legislatura 2025–2028 · Caraguatatuba/SP</span>
+          <h1 class="h1">Trabalho, Fé e <em>Raízes Caiçaras</em> por Caraguatatuba.</h1>
+          <p class="sub">Um mandato de resultado: pé no bairro, fiscalização firme e respeito a quem confiou o voto.</p>
+          <div class="cta">
+            <a class="btn btn-wa" href="#b">Falar no WhatsApp</a>
+            <a class="btn btn-ghost" href="#b">🎬 Conheça o Podcast</a>
+          </div>
+          <span class="micro"><span class="dot">●</span> Eleito com a confiança de 1.586 caraguatatubenses.</span>
+        </div>
+        <div class="visual">
+          <img class="portrait" src="inital_assets/Retrato%20corporativo%20masculino%20com%20fundo%20transparente.png" alt="Vereador Maurílio Moreira, sorrindo, de terno azul e camisa branca">
+          <div class="card">
+            <span class="selo">✓ Aprovada por unanimidade</span>
+            <h3>Independência para mulheres vítimas de violência</h3>
+            <span class="meta">Lei nº 32/26 · 19/05/2026</span>
+          </div>
+        </div>
+      </div>
+      <div class="spec"><span class="big">Aa</span><span class="lab">Fraunces · 900 — serifa com calor e raiz</span></div>
+    </div>
+  </section>
+
+  <!-- C -->
+  <section class="panel" id="c">
+    <div class="label"><span class="tag">Direção C</span><h2>Movimento AGIR</h2></div>
+    <p class="fonts">Fontes: <b>Archivo</b> (títulos, caixa-alta) + <b>Inter</b> (texto) · Sensação: moderno, energia, atitude.</p>
+    <div class="mock C">
+      <div class="hero">
+        <div class="copy">
+          <span class="eb">Legislatura 2025–2028 · Caraguatatuba/SP</span>
+          <h1 class="h1">Trabalho, Fé e <em>Raízes Caiçaras</em> por Caraguatatuba.</h1>
+          <p class="sub">Um mandato de resultado: pé no bairro, fiscalização firme e respeito a quem confiou o voto.</p>
+          <div class="cta">
+            <a class="btn btn-wa" href="#c">Falar no WhatsApp</a>
+            <a class="btn btn-ghost" href="#c">🎬 Conheça o Podcast</a>
+          </div>
+          <span class="micro"><span class="dot">●</span> Eleito com a confiança de 1.586 caraguatatubenses.</span>
+        </div>
+        <div class="visual">
+          <img class="portrait" src="inital_assets/Retrato%20corporativo%20masculino%20com%20fundo%20transparente.png" alt="Vereador Maurílio Moreira, sorrindo, de terno azul e camisa branca">
+          <div class="card">
+            <span class="selo">✓ Aprovada por unanimidade</span>
+            <h3>Independência para mulheres vítimas de violência</h3>
+            <span class="meta">Lei nº 32/26 · 19/05/2026</span>
+          </div>
+        </div>
+      </div>
+      <div class="spec"><span class="big">Aa</span><span class="lab">Archivo · 900 caixa-alta — pegada de cartaz</span></div>
+    </div>
+  </section>
+
+  <section class="foot">
+    <p>Todas usam <b>verde</b> só na ação (WhatsApp) e <b>ciano AGIR</b> no destaque. Me diga a letra — <b>A</b>, <b>B</b> ou <b>C</b> — ou uma mistura (ex.: “título da B com a cor/energia da C”) e eu travo no plano.</p>
+  </section>
+</main>
+</body>
+</html>
