@@ -14,6 +14,7 @@ const filters: { key: Filter; label: string }[] = [
   { key: "leis", label: categoryLabels.leis },
   { key: "asfalto", label: categoryLabels.asfalto },
   { key: "mobilidade", label: categoryLabels.mobilidade },
+  { key: "esporte", label: categoryLabels.esporte },
 ];
 
 export function Scoreboard() {

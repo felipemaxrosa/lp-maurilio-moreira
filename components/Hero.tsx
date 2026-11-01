@@ -91,9 +91,8 @@ export function Hero() {
             <span className="h-2 w-2 rounded-full bg-verde" />
             Eleito com a confiança de{' '}
             <strong className="font-semibold text-white">
-              1.586 caraguatatubenses
+              1.586 caraguatatubenses.
             </strong>
-            .
           </p>
         </div>
 

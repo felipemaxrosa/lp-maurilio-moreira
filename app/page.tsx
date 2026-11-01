@@ -5,6 +5,7 @@ import { TrustBar } from "@/components/TrustBar";
 import { About } from "@/components/About";
 import { Bandeiras } from "@/components/Bandeiras";
 import { Scoreboard } from "@/components/Scoreboard";
+import { Comunidade } from "@/components/Comunidade";
 import { Podcast } from "@/components/Podcast";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
@@ -21,6 +22,7 @@ export default function Home() {
         <About />
         <Bandeiras />
         <Scoreboard />
+        <Comunidade />
         <Podcast />
         <Contact />
       </main>

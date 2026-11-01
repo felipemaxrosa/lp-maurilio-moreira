@@ -106,12 +106,13 @@ export const values = [
   },
 ];
 
-export type MandateCategory = 'leis' | 'asfalto' | 'mobilidade';
+export type MandateCategory = 'leis' | 'asfalto' | 'mobilidade' | 'esporte';
 
 export const categoryLabels: Record<MandateCategory, string> = {
   leis: 'Leis & Direitos',
   asfalto: 'Asfalto & Obras',
   mobilidade: 'Mobilidade',
+  esporte: 'Esporte & Cultura',
 };
 
 export type SeloTone = 'lei' | 'demanda' | 'fiscalizacao';
@@ -199,6 +200,114 @@ export const mandateCards: MandateCard[] = [
     copy: 'Pedimos a implantação e revitalização de faixas de pedestres em vias de grande movimento do Perequê-Mirim, como a Av. José Herculano (SP-55). Segurança para quem anda a pé.',
     sourceUrl: 'https://www.instagram.com/mauriliomoreira_/p/DdFNXz8NE9O/',
     media: { type: 'photo', alt: 'Faixas de pedestres no Perequê-Mirim' },
+  },
+  {
+    id: 'benfica-jaraguazinho',
+    category: 'asfalto',
+    selo: 'Compromisso cumprido',
+    seloTone: 'demanda',
+    title: 'Asfalto novo em Benfica e Jaraguazinho',
+    copy: 'Pedido atendido, compromisso cumprido: os bairros Benfica e Jaraguazinho começaram a receber o asfalto que esperavam — mais mobilidade, segurança e qualidade de vida.',
+    ctaLabel: 'Assistir ao vídeo',
+    ctaHref: 'https://www.instagram.com/mauriliomoreira_/reel/DWc-SLejExn/',
+    media: { type: 'video', src: '/placar/benfica-jaraguazinho.jpg', alt: 'Maurílio Moreira no asfalto novo dos bairros Benfica e Jaraguazinho' },
+  },
+  {
+    id: 'morro-algodao',
+    category: 'asfalto',
+    selo: 'Fiscalização no bairro',
+    seloTone: 'fiscalizacao',
+    title: 'Fiscalização no Morro do Algodão',
+    copy: 'Depois das reclamações sobre bueiros abertos e buracos agravados pelas chuvas, fomos ao local verificar e cobrar as providências para a segurança dos moradores.',
+    ctaLabel: 'Assistir ao vídeo',
+    ctaHref: 'https://www.instagram.com/mauriliomoreira_/reel/DaOZQdpttM1/',
+    media: { type: 'video', src: '/placar/morro-algodao.jpg', alt: 'Maurílio Moreira fiscalizando o Morro do Algodão' },
+  },
+  {
+    id: 'golfinhos',
+    category: 'asfalto',
+    selo: 'Cobrança à SABESP',
+    seloTone: 'fiscalizacao',
+    title: 'Recapeamento cobrado no bairro Golfinhos',
+    copy: 'Após a reclamação de um morador, constatamos falhas no serviço da SABESP — recapeamento mal feito — e cobramos que o trabalho fosse refeito com respeito à população.',
+    ctaLabel: 'Assistir ao vídeo',
+    ctaHref: 'https://www.instagram.com/mauriliomoreira_/reel/DWmbY14kTWg/',
+    media: { type: 'video', src: '/placar/golfinhos.jpg', alt: 'Fiscalização de recapeamento no bairro Golfinhos' },
+  },
+  {
+    id: 'esporte-eliseu',
+    category: 'esporte',
+    selo: 'Apoio ao esporte',
+    seloTone: 'demanda',
+    title: 'Apoio ao atleta caiçara Eliseu Martins',
+    copy: 'Recebemos o atleta Eliseu Martins, destaque no Stand Up Paddle e no Remo. Abraçamos a causa do esporte de Caraguá — talento da nossa terra que merece apoio e visibilidade.',
+    ctaLabel: 'Assistir ao vídeo',
+    ctaHref: 'https://www.instagram.com/mauriliomoreira_/reel/DcmPYnft1Vw/',
+    media: { type: 'video', src: '/placar/esporte-eliseu.jpg', alt: 'Maurílio Moreira com o atleta Eliseu Martins e seus troféus' },
+  },
+  {
+    id: 'caragua-a-gosto',
+    category: 'esporte',
+    selo: 'Cultura & economia',
+    seloTone: 'demanda',
+    title: 'Caraguá A Gosto: cultura que move a economia',
+    copy: 'Presença no encerramento do Caraguá A Gosto, evento que valoriza a nossa gastronomia, fortalece o comércio local e aquece a economia da cidade.',
+    ctaLabel: 'Assistir ao vídeo',
+    ctaHref: 'https://www.instagram.com/mauriliomoreira_/reel/DdIGG3Gx1np/',
+    media: { type: 'video', src: '/placar/caragua-a-gosto.jpg', alt: 'Encerramento do festival Caraguá A Gosto' },
+  },
+  {
+    id: 'tpa-ilhabela',
+    category: 'mobilidade',
+    selo: 'Defesa do morador',
+    seloTone: 'fiscalizacao',
+    title: 'Isenção da TPA para o morador de Caraguá',
+    copy: 'Em audiência na Câmara de Ilhabela, defendemos a isenção da TPA para os caraguatatubenses. Somos cidades irmãs — ninguém deve ser taxado para visitar a cidade vizinha.',
+    ctaLabel: 'Assistir ao vídeo',
+    ctaHref: 'https://www.instagram.com/mauriliomoreira_/reel/DXHH7DVEfYK/',
+    media: { type: 'video', src: '/placar/tpa-ilhabela.jpg', alt: 'Maurílio Moreira em audiência na Câmara de Ilhabela sobre a TPA' },
+  },
+];
+
+export type ComunidadeFoto = { src: string; alt: string; href: string; caption: string };
+
+// Galeria "Pé no bairro" — presença na comunidade (fotos reais do Instagram).
+export const comunidade: ComunidadeFoto[] = [
+  {
+    src: '/comunidade/gabinete-pastor.jpg',
+    caption: 'Gabinete aberto à comunidade',
+    alt: 'Maurílio Moreira recebe o Pastor Maurício e família no gabinete',
+    href: 'https://www.instagram.com/mauriliomoreira_/p/Ddr0fn8lHow/',
+  },
+  {
+    src: '/comunidade/conexao-pastores.jpg',
+    caption: 'Conexão de Pastores (COMPAC)',
+    alt: 'Encontro de pastores e líderes no COMPAC',
+    href: 'https://www.instagram.com/mauriliomoreira_/reel/DbySouQRnZA/',
+  },
+  {
+    src: '/comunidade/cafe-pastores.jpg',
+    caption: 'Café de oração com lideranças',
+    alt: 'Café da manhã de comunhão e oração com pastores da cidade',
+    href: 'https://www.instagram.com/mauriliomoreira_/reel/DdM0fmttl2T/',
+  },
+  {
+    src: '/comunidade/casa-abraao.jpg',
+    caption: 'Moção à Igreja Casa de Abraão',
+    alt: 'Moção de congratulação pelos 13 anos da Igreja Casa de Abraão',
+    href: 'https://www.instagram.com/mauriliomoreira_/reel/DeLUKzzR_6Y/',
+  },
+  {
+    src: '/comunidade/lagoinha.jpg',
+    caption: '3 anos da Lagoinha Caraguá',
+    alt: 'Celebração de 3 anos da Lagoinha Caraguatatuba',
+    href: 'https://www.instagram.com/mauriliomoreira_/reel/Dd1u7U4N7v1/',
+  },
+  {
+    src: '/comunidade/desbravadores.jpg',
+    caption: 'Dia dos Desbravadores',
+    alt: 'Celebração ao lado dos Desbravadores',
+    href: 'https://www.instagram.com/mauriliomoreira_/reel/DdfQ0nMxnOn/',
   },
 ];
 
