@@ -6,7 +6,7 @@ import { comunidade } from "@/lib/content";
 
 export function Comunidade() {
   return (
-    <section id="comunidade" className="scroll-mt-20 bg-white">
+    <section id="comunidade" className="scroll-mt-20 bg-mist">
       <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
         <SectionIntro
           eyebrow="Pé no bairro"

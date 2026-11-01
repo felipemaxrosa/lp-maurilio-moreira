@@ -19,11 +19,6 @@ export function Hero() {
     target: ref,
     offset: ['start start', 'end start'],
   });
-  const portraitY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [0, reduce ? 0 : -50],
-  );
   const glowY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 90]);
 
   return (
@@ -92,10 +87,7 @@ export function Hero() {
         </div>
 
         {/* Foto — no mobile segue o fluxo; no desktop ancora no canto inferior direito (base reta) */}
-        <motion.div
-          style={{ y: reduce ? 0 : portraitY }}
-          className="relative z-0 -mx-4 flex items-end justify-center sm:-mx-6 lg:absolute lg:inset-y-0 lg:right-0 lg:mx-0 lg:w-[52%] lg:justify-end lg:px-8"
-        >
+        <div className="relative z-0 -mx-4 flex items-end justify-center sm:-mx-6 lg:absolute lg:inset-y-0 lg:right-0 lg:mx-0 lg:w-[52%] lg:justify-end lg:px-8">
           <Image
             src="/maurilio-hero.png"
             alt="Vereador Maurílio Moreira, sorrindo, de terno azul e camisa branca"
@@ -124,7 +116,7 @@ export function Hero() {
               Lei nº 32/26 · 19/05/2026
             </span>
           </motion.div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

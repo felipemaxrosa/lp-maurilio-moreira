@@ -5,7 +5,7 @@ import { depoimentos } from "@/lib/content";
 
 export function Depoimentos() {
   return (
-    <section id="depoimentos" className="scroll-mt-20 bg-mist">
+    <section id="depoimentos" className="scroll-mt-20 bg-white">
       <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
         <SectionIntro
           eyebrow="A voz de quem é daqui"

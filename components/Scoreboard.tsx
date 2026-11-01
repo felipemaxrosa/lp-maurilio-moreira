@@ -38,7 +38,7 @@ export function Scoreboard({ limit, showFilters = true, showIntro = true, moreHr
   }, [active, limit]);
 
   return (
-    <section id="mandato" className="scroll-mt-20 bg-mist">
+    <section id="mandato" className="scroll-mt-20 bg-white">
       <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
         {showIntro && (
           <SectionIntro

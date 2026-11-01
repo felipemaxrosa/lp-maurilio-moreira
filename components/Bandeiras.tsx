@@ -15,7 +15,7 @@ export function Bandeiras() {
   const secondary = bandeiras.filter((b) => !b.featured);
 
   return (
-    <section id="bandeiras" className="scroll-mt-20 bg-white">
+    <section id="bandeiras" className="scroll-mt-20 bg-mist">
       <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
         <SectionIntro
           eyebrow="Bandeiras do Mandato"
@@ -60,7 +60,7 @@ export function Bandeiras() {
             const Icon = icons[b.icon];
             return (
               <Reveal key={b.id} delay={i * 0.08}>
-                <article className="flex h-full items-start gap-4 rounded-2xl border border-line bg-mist/50 p-6">
+                <article className="flex h-full items-start gap-4 rounded-2xl border border-line bg-white p-6">
                   <span className="grid h-12 w-12 shrink-0 place-items-center rounded-lg bg-teal/10 text-teal">
                     <Icon className="h-6 w-6" />
                   </span>

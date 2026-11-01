@@ -1,30 +1,35 @@
-import { Vote, Scale, MapPin } from "lucide-react";
-import { CountUp } from "@/components/ui/CountUp";
+import { Vote, Scale, MapPin } from 'lucide-react';
+import { CountUp } from '@/components/ui/CountUp';
 
-type Item = { key: string; Icon: typeof Vote; value: React.ReactNode; label: string };
+type Item = {
+  key: string;
+  Icon: typeof Vote;
+  value: React.ReactNode;
+  label: string;
+};
 
 const items: Item[] = [
   {
-    key: "votos",
+    key: 'votos',
     Icon: Vote,
     value: <CountUp to={1586} />,
-    label: "votos de confiança em 2024",
+    label: 'votos de confiança em 2024',
   },
   {
-    key: "lei",
+    key: 'lei',
     Icon: Scale,
     value: <>32/26</>,
-    label: "lei aprovada por unanimidade",
+    label: 'lei aprovada por unanimidade',
   },
   {
-    key: "bairros",
+    key: 'bairros',
     Icon: MapPin,
     value: (
       <>
         +<CountUp to={7} duration={1.2} />
       </>
     ),
-    label: "bairros com demandas atendidas",
+    label: 'bairros com demandas atendidas',
   },
 ];
 
@@ -45,7 +50,9 @@ export function TrustBar() {
                 <span className="font-display text-3xl font-black leading-none tracking-tight text-petroleo lg:text-4xl">
                   {value}
                 </span>
-                <span className="mt-1.5 text-sm font-medium leading-snug text-ink-soft">{label}</span>
+                <span className="mt-1.5 text-sm font-medium leading-snug text-ink-soft">
+                  {label}
+                </span>
               </div>
             </div>
           ))}
