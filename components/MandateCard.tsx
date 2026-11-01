@@ -1,6 +1,8 @@
 import Image from "next/image";
-import { Play, FileText, Camera, ArrowUpRight } from "lucide-react";
+import { Play, ArrowUpRight } from "lucide-react";
 import { TiltCard } from "@/components/ui/TiltCard";
+import { CardArt } from "@/components/ui/CardArt";
+import { InstagramIcon, FacebookIcon, YoutubeIcon } from "@/components/ui/BrandIcons";
 import { categoryLabels, type MandateCard as MandateCardType } from "@/lib/content";
 
 const seloStyles: Record<string, string> = {
@@ -9,7 +11,13 @@ const seloStyles: Record<string, string> = {
   fiscalizacao: "bg-amber-100 text-amber-800",
 };
 
-const typeIcon = { video: Play, document: FileText, photo: Camera } as const;
+// Define ícone + rótulo + cor de hover do link "Ver em..." conforme a rede social do permalink.
+function sourceMeta(url: string) {
+  if (/instagram\.com/.test(url)) return { Icon: InstagramIcon, label: "Ver no Instagram", hover: "hover:text-[#E1306C]" };
+  if (/facebook\.com|fb\.watch/.test(url)) return { Icon: FacebookIcon, label: "Ver no Facebook", hover: "hover:text-[#1877F2]" };
+  if (/youtube\.com|youtu\.be/.test(url)) return { Icon: YoutubeIcon, label: "Ver no YouTube", hover: "hover:text-[#FF0000]" };
+  return { Icon: ArrowUpRight, label: "Ver publicação", hover: "hover:text-petroleo" };
+}
 
 type Props = {
   card: MandateCardType;
@@ -17,8 +25,7 @@ type Props = {
 };
 
 export function MandateCard({ card, onOpenDoc }: Props) {
-  const Icon = typeIcon[card.media.type];
-  const isExternal = card.ctaHref.startsWith("http");
+  const isExternal = card.ctaHref?.startsWith("http") ?? false;
   const isDocWithImage = card.media.type === "document" && Boolean(card.media.src);
 
   return (
@@ -35,9 +42,7 @@ export function MandateCard({ card, onOpenDoc }: Props) {
               className="object-cover"
             />
           ) : (
-            <div className="absolute inset-0 grid place-items-center">
-              <Icon className="h-12 w-12 text-white/40" />
-            </div>
+            <CardArt />
           )}
           {card.media.type === "video" && (
             <span className="absolute inset-0 grid place-items-center">
@@ -59,8 +64,8 @@ export function MandateCard({ card, onOpenDoc }: Props) {
           <h3 className="font-display text-lg font-extrabold leading-snug text-ink">{card.title}</h3>
           <p className="text-sm leading-relaxed text-ink-soft">{card.copy}</p>
 
-          <div className="mt-auto pt-2">
-            {isDocWithImage ? (
+          <div className="mt-auto flex flex-wrap items-center gap-x-5 gap-y-2 pt-2">
+            {isDocWithImage && card.ctaLabel ? (
               <button
                 type="button"
                 onClick={() => onOpenDoc(card.media.src!, card.media.alt ?? card.title)}
@@ -69,7 +74,7 @@ export function MandateCard({ card, onOpenDoc }: Props) {
                 {card.ctaLabel}
                 <ArrowUpRight className="h-4 w-4" />
               </button>
-            ) : (
+            ) : card.ctaHref && card.ctaLabel ? (
               <a
                 href={card.ctaHref}
                 {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
@@ -78,7 +83,22 @@ export function MandateCard({ card, onOpenDoc }: Props) {
                 {card.ctaLabel}
                 <ArrowUpRight className="h-4 w-4" />
               </a>
-            )}
+            ) : null}
+            {card.sourceUrl &&
+              (() => {
+                const { Icon, label, hover } = sourceMeta(card.sourceUrl!);
+                return (
+                  <a
+                    href={card.sourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`inline-flex items-center gap-1.5 text-sm font-semibold text-ink-soft transition-colors ${hover}`}
+                  >
+                    <Icon className="h-4 w-4" />
+                    {label}
+                  </a>
+                );
+              })()}
           </div>
         </div>
       </article>

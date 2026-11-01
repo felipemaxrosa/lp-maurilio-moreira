@@ -3,6 +3,7 @@ import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { TrustBar } from "@/components/TrustBar";
 import { About } from "@/components/About";
+import { Bandeiras } from "@/components/Bandeiras";
 import { Scoreboard } from "@/components/Scoreboard";
 import { Podcast } from "@/components/Podcast";
 import { Contact } from "@/components/Contact";
@@ -18,6 +19,7 @@ export default function Home() {
         <Hero />
         <TrustBar />
         <About />
+        <Bandeiras />
         <Scoreboard />
         <Podcast />
         <Contact />

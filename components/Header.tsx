@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { nav } from "@/lib/content";
 import { whatsappLink, DEFAULT_WA_MESSAGE } from "@/lib/whatsapp";
@@ -32,9 +33,14 @@ export function Header() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:h-20 lg:px-8">
         {/* Logo */}
         <a href="#inicio" onClick={go("#inicio")} className="flex items-center gap-3" aria-label="Maurílio Moreira — início">
-          <span className="grid h-10 w-10 place-items-center rounded-md bg-ciano font-display text-lg font-black text-petroleo-900">
-            M
-          </span>
+          <Image
+            src="/brasao-caraguatatuba.png"
+            alt="Brasão de Caraguatatuba"
+            width={40}
+            height={40}
+            className="h-10 w-auto drop-shadow-sm"
+            priority
+          />
           <span className="flex flex-col leading-none">
             <span className="font-display text-base font-extrabold tracking-tight text-white">Maurílio Moreira</span>
             <span className="u-eyebrow mt-0.5 text-[0.62rem] text-ciano">Vereador · AGIR</span>

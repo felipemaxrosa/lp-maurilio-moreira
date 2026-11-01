@@ -20,9 +20,53 @@ export const socials = {
 export const nav = [
   { label: 'Início', href: '#inicio' },
   { label: 'Sobre', href: '#sobre' },
+  { label: 'Bandeiras', href: '#bandeiras' },
   { label: 'Mandato', href: '#mandato' },
   { label: 'Podcast', href: '#podcast' },
   { label: 'Gabinete', href: '#gabinete' },
+];
+
+export type Bandeira = {
+  id: string;
+  icon: 'inclusao' | 'saude' | 'articulacao' | 'pesca';
+  title: string;
+  copy: string;
+  tags?: string[];
+  featured: boolean;
+};
+
+// Bandeiras / causas do mandato (destaque visual para Saúde e Inclusão).
+export const bandeiras: Bandeira[] = [
+  {
+    id: 'inclusao',
+    icon: 'inclusao',
+    title: 'Inclusão & Dignidade',
+    copy: 'Toda família atípica merece respeito, acolhimento e acesso. Defendemos a inclusão em Caraguatatuba — apoio à APAE, atendimento e transporte adequados para pessoas com TEA e acessibilidade de verdade nos espaços públicos.',
+    tags: ['APAE', 'Famílias atípicas (TEA)', 'Acessibilidade'],
+    featured: true,
+  },
+  {
+    id: 'saude',
+    icon: 'saude',
+    title: 'Saúde & Emergência',
+    copy: 'Saúde é vida — e no litoral, agilidade salva. Trabalhamos por mais estrutura no SAMU e nas Santas Casas, pelo reforço dos Bombeiros na Operação Verão e por um socorro rápido a quem precisa.',
+    tags: ['SAMU', 'Bombeiros', 'Pronto atendimento'],
+    featured: true,
+  },
+  {
+    id: 'articulacao',
+    icon: 'articulacao',
+    title: 'Articulação que traz resultado',
+    copy: 'Mandato que abre portas: junto a lideranças estaduais, ajudamos a destravar recursos e obras para Caraguatatuba e todo o Litoral Norte.',
+    featured: false,
+  },
+  {
+    id: 'pesca',
+    icon: 'pesca',
+    title: 'Força da pesca caiçara',
+    copy: 'Nossa identidade é o mar. Apoiamos o fortalecimento da pesca artesanal e a valorização da cultura caiçara que faz Caraguá ser Caraguá.',
+    featured: false,
+  },
 ];
 
 // Faixa de prova social (números com count-up).
@@ -79,8 +123,9 @@ export type MandateCard = {
   seloTone: SeloTone;
   title: string;
   copy: string;
-  ctaLabel: string;
-  ctaHref: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  sourceUrl?: string;
   media: {
     type: 'video' | 'document' | 'photo';
     youtubeId?: string;
@@ -100,7 +145,11 @@ export const mandateCards: MandateCard[] = [
     ctaLabel: 'Ver a notícia oficial',
     ctaHref:
       'https://caraguatatuba.sp.leg.br/noticias/projeto-que-garante-vagas-para-mulheres-vitimas-de-violencia-em-contratos-publicos-e-aprovado-por-unanimidade',
-    media: { type: 'photo', alt: 'Sessão da Câmara de Caraguatatuba' },
+    media: {
+      type: 'photo',
+      src: '/placar/lei-32-26.jpg',
+      alt: 'Vereador Maurílio Moreira discursando na Câmara de Caraguatatuba',
+    },
   },
   {
     id: 'der-tabatinga',
@@ -109,10 +158,9 @@ export const mandateCards: MandateCard[] = [
     seloTone: 'demanda',
     title: 'Fim do perigo no retorno da Tabatinga (SP-055)',
     copy: 'O trecho do Km 82+680 colocava vidas em risco diariamente. Cobramos o DER com firmeza e garantimos a execução do serviço de manutenção e reparo asfáltico na alça da rotatória.',
-    ctaLabel: 'Ver o ofício oficial',
-    ctaHref: '#gabinete',
+    sourceUrl: 'https://www.instagram.com/mauriliomoreira_/reel/DaBdw_yteJ7/',
     media: {
-      type: 'document',
+      type: 'photo',
       src: '/placar/oficio-der-doc.jpg',
       alt: 'Ofício 8367/2026 do DER-SP',
     },
@@ -125,7 +173,7 @@ export const mandateCards: MandateCard[] = [
     title: 'Asfalto novo e dignidade na Travessa Cid Galvão',
     copy: 'O dinheiro público precisa virar qualidade de vida na porta de casa. Acompanhamos de perto o rolo compressor trabalhando e cobramos agilidade para o morador ter a infraestrutura que merece.',
     ctaLabel: 'Assistir ao vídeo',
-    ctaHref: socials.instagram,
+    ctaHref: 'https://www.instagram.com/mauriliomoreira_/reel/DaLGlJ3RbmT/',
     media: {
       type: 'video',
       src: '/placar/cid-galvao-reel.jpg',
@@ -139,9 +187,8 @@ export const mandateCards: MandateCard[] = [
     seloTone: 'demanda',
     title: 'Reforma e revitalização da quadra de esportes do Tinga',
     copy: 'Cobramos do Executivo a previsão orçamentária e o cronograma para reformar a quadra de esportes do bairro Tinga — lazer e esporte para a nossa juventude.',
-    ctaLabel: 'Entenda o requerimento',
-    ctaHref: '#gabinete',
-    media: { type: 'photo', alt: 'Quadra de esportes do bairro Tinga' },
+    sourceUrl: 'https://www.instagram.com/mauriliomoreira_/p/DdFNXz8NE9O/',
+    media: { type: 'photo', alt: 'Reforma da quadra de esportes do Tinga' },
   },
   {
     id: 'faixas-pereque',
@@ -150,9 +197,8 @@ export const mandateCards: MandateCard[] = [
     seloTone: 'demanda',
     title: 'Faixas de pedestres para proteger o Perequê-Mirim',
     copy: 'Pedimos a implantação e revitalização de faixas de pedestres em vias de grande movimento do Perequê-Mirim, como a Av. José Herculano (SP-55). Segurança para quem anda a pé.',
-    ctaLabel: 'Entenda o requerimento',
-    ctaHref: '#gabinete',
-    media: { type: 'photo', alt: 'Faixa de pedestres no Perequê-Mirim' },
+    sourceUrl: 'https://www.instagram.com/mauriliomoreira_/p/DdFNXz8NE9O/',
+    media: { type: 'photo', alt: 'Faixas de pedestres no Perequê-Mirim' },
   },
 ];
 
