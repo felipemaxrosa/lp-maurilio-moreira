@@ -97,12 +97,12 @@ export const values = [
   {
     icon: 'handshake',
     title: 'Justiça Social',
-    text: 'Atenção aos mais carentes através de saúde e oportunidades.',
+    text: 'Cuidado com quem mais precisa: saúde, acolhimento e oportunidades para todos.',
   },
   {
     icon: 'search',
     title: 'Transparência',
-    text: 'Fiscalização implacável do orçamento municipal.',
+    text: 'Fiscalização firme e transparente do dinheiro público.',
   },
 ];
 
@@ -308,6 +308,31 @@ export const comunidade: ComunidadeFoto[] = [
     caption: 'Dia dos Desbravadores',
     alt: 'Celebração ao lado dos Desbravadores',
     href: 'https://www.instagram.com/mauriliomoreira_/reel/DdfQ0nMxnOn/',
+  },
+];
+
+export type Depoimento = { quote: string; author: string; detail: string };
+
+// ⚠️ EXEMPLOS ILUSTRATIVOS — substituir por depoimentos REAIS e AUTORIZADOS antes de publicar.
+// Atribuição genérica de propósito (nenhuma pessoa real é citada).
+export const depoimentos: Depoimento[] = [
+  {
+    quote:
+      'Cobrei o asfalto da minha rua e, pela primeira vez, vi um vereador aparecer para acompanhar de perto. Saiu do papel.',
+    author: 'Moradora',
+    detail: 'Bairro Tabatinga',
+  },
+  {
+    quote:
+      'Mandei uma mensagem pelo WhatsApp do gabinete e fui atendida no mesmo dia. Dá para sentir que tem gente trabalhando de verdade.',
+    author: 'Moradora',
+    detail: 'Perequê-Mirim',
+  },
+  {
+    quote:
+      'Trabalho sério, com fé e respeito pelas famílias. É o tipo de representante que Caraguá precisava.',
+    author: 'Apoiador',
+    detail: 'Centro',
   },
 ];
 

@@ -78,7 +78,7 @@ export function WhatsappForm() {
           id="mensagem"
           value={values.mensagem}
           onChange={set("mensagem")}
-          placeholder="Qual problema do seu bairro precisa de fiscalização urgente?"
+          placeholder="Conte o problema do seu bairro ou a sua sugestão de projeto."
           rows={4}
           className={`${fieldClass(Boolean(values.mensagem.trim()))} resize-y`}
           required

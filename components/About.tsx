@@ -29,8 +29,8 @@ export function About() {
             />
             <Reveal className="flex flex-col gap-5 text-lg leading-relaxed text-ink-soft" delay={0.05}>
               <p>
-                Nascido e criado com muito orgulho na nossa terra caiçara. São valores que carrego em tudo o que faço —
-                na família, na fé e no trabalho pela cidade.
+                A nossa terra caiçara é a minha casa, a minha gente e a minha história. São os valores do mar, da
+                família e da fé que carrego em cada decisão, dentro e fora da Câmara.
               </p>
               <p>
                 Como empresário e cristão, sempre acreditei que <strong className="font-semibold text-ink">a fé exige ação</strong>.

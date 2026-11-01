@@ -7,6 +7,7 @@ import { Bandeiras } from "@/components/Bandeiras";
 import { Scoreboard } from "@/components/Scoreboard";
 import { Comunidade } from "@/components/Comunidade";
 import { Podcast } from "@/components/Podcast";
+import { Depoimentos } from "@/components/Depoimentos";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 import { FloatingWhatsapp } from "@/components/FloatingWhatsapp";
@@ -23,6 +24,7 @@ export default function Home() {
         <Bandeiras />
         <Scoreboard />
         <Comunidade />
+        <Depoimentos />
         <Podcast />
         <Contact />
       </main>
