@@ -2,11 +2,18 @@ import { MapPin, Mail, Phone } from "lucide-react";
 import { SectionIntro } from "@/components/ui/SectionIntro";
 import { Reveal } from "@/components/ui/Reveal";
 import { WhatsappForm } from "@/components/WhatsappForm";
-import { contact } from "@/lib/content";
+import type { ContactInfo } from "@/lib/sanity/types";
 
-const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(contact.mapsQuery)}&output=embed`;
+type Props = {
+  contact: ContactInfo;
+  whatsappDisplay?: string;
+};
 
-export function Contact() {
+export function Contact({ contact, whatsappDisplay }: Props) {
+  const mapSrc = contact?.mapsQuery
+    ? `https://www.google.com/maps?q=${encodeURIComponent(contact.mapsQuery)}&output=embed`
+    : null;
+
   return (
     <section id="gabinete" className="scroll-mt-20 bg-white">
       <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
@@ -29,8 +36,8 @@ export function Contact() {
                 </span>
                 <div className="flex flex-col">
                   <span className="font-semibold text-ink">Gabinete</span>
-                  <span className="text-ink-soft">{contact.address}</span>
-                  <span className="text-ink-soft">CEP {contact.cep}</span>
+                  <span className="text-ink-soft">{contact?.address}</span>
+                  {contact?.cep && <span className="text-ink-soft">CEP {contact.cep}</span>}
                 </div>
               </li>
               <li className="flex items-start gap-3">
@@ -39,8 +46,8 @@ export function Contact() {
                 </span>
                 <div className="flex flex-col">
                   <span className="font-semibold text-ink">E-mail</span>
-                  <a href={`mailto:${contact.email}`} className="break-all text-ink-soft hover:text-teal">
-                    {contact.email}
+                  <a href={`mailto:${contact?.email}`} className="break-all text-ink-soft hover:text-teal">
+                    {contact?.email}
                   </a>
                 </div>
               </li>
@@ -50,20 +57,22 @@ export function Contact() {
                 </span>
                 <div className="flex flex-col">
                   <span className="font-semibold text-ink">WhatsApp do gabinete</span>
-                  <span className="text-ink-soft">{contact.whatsappDisplay}</span>
+                  <span className="text-ink-soft">{whatsappDisplay}</span>
                 </div>
               </li>
             </ul>
 
-            <div className="overflow-hidden rounded-2xl border border-line">
-              <iframe
-                src={mapSrc}
-                title="Localização do gabinete de Maurílio Moreira na Câmara de Caraguatatuba"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="h-64 w-full border-0 lg:h-72"
-              />
-            </div>
+            {mapSrc && (
+              <div className="overflow-hidden rounded-2xl border border-line">
+                <iframe
+                  src={mapSrc}
+                  title="Localização do gabinete de Maurílio Moreira na Câmara de Caraguatatuba"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="h-64 w-full border-0 lg:h-72"
+                />
+              </div>
+            )}
           </Reveal>
         </div>
       </div>

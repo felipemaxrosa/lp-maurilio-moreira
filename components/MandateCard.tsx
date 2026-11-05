@@ -3,7 +3,8 @@ import { Play, ArrowUpRight } from "lucide-react";
 import { TiltCard } from "@/components/ui/TiltCard";
 import { CardArt } from "@/components/ui/CardArt";
 import { InstagramIcon, FacebookIcon, YoutubeIcon } from "@/components/ui/BrandIcons";
-import { categoryLabels, type MandateCard as MandateCardType } from "@/lib/content";
+import { categoryLabels } from "@/lib/content";
+import type { MandateCardDoc } from "@/lib/sanity/types";
 
 const seloStyles: Record<string, string> = {
   lei: "bg-emerald-50 text-emerald-700",
@@ -20,25 +21,28 @@ function sourceMeta(url: string) {
 }
 
 type Props = {
-  card: MandateCardType;
+  card: MandateCardDoc;
   onOpenDoc: (src: string, alt: string) => void;
 };
 
 export function MandateCard({ card, onOpenDoc }: Props) {
   const isExternal = card.ctaHref?.startsWith("http") ?? false;
-  const isDocWithImage = card.media.type === "document" && Boolean(card.media.src);
+  const imageUrl = card.media.image?.url;
+  const isDocWithImage = card.media.type === "document" && Boolean(imageUrl);
 
   return (
     <TiltCard className="h-full">
       <article className="flex h-full flex-col overflow-hidden rounded-xl border border-line bg-white shadow-sm transition-shadow duration-300 hover:shadow-xl">
         {/* Mídia */}
         <div className="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-petroleo to-teal">
-          {card.media.src ? (
+          {imageUrl ? (
             <Image
-              src={card.media.src}
-              alt={card.media.alt ?? card.title}
+              src={imageUrl}
+              alt={card.media.image?.alt || card.title}
               fill
               sizes="(max-width: 768px) 100vw, 33vw"
+              placeholder={card.media.image?.lqip ? "blur" : "empty"}
+              blurDataURL={card.media.image?.lqip}
               className="object-cover"
             />
           ) : (
@@ -68,7 +72,7 @@ export function MandateCard({ card, onOpenDoc }: Props) {
             {isDocWithImage && card.ctaLabel ? (
               <button
                 type="button"
-                onClick={() => onOpenDoc(card.media.src!, card.media.alt ?? card.title)}
+                onClick={() => onOpenDoc(imageUrl!, card.media.image?.alt ?? card.title)}
                 className="inline-flex items-center gap-1.5 text-sm font-bold text-teal transition-colors hover:text-petroleo"
               >
                 {card.ctaLabel}

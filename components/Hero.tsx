@@ -11,8 +11,9 @@ import {
 import { Landmark, Play, Check } from 'lucide-react';
 import { whatsappLink, DEFAULT_WA_MESSAGE } from '@/lib/whatsapp';
 import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon';
+import type { HeroSettings } from '@/lib/sanity/types';
 
-export function Hero() {
+export function Hero({ hero }: { hero: HeroSettings }) {
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({
@@ -88,15 +89,19 @@ export function Hero() {
 
         {/* Foto — no mobile segue o fluxo; no desktop ancora no canto inferior direito (base reta) */}
         <div className="relative z-0 -mx-4 flex items-end justify-center sm:-mx-6 lg:absolute lg:inset-y-0 lg:right-0 lg:mx-0 lg:w-[52%] lg:justify-end lg:px-8">
-          <Image
-            src="/maurilio-hero.png"
-            alt="Vereador Maurílio Moreira, sorrindo, de terno azul e camisa branca"
-            width={1133}
-            height={1396}
-            priority
-            sizes="(max-width: 1024px) 85vw, 50vw"
-            className="h-auto w-auto max-h-[66vh] object-contain object-bottom drop-shadow-2xl lg:max-h-[44rem]"
-          />
+          {hero?.portrait?.url && (
+            <Image
+              src={hero.portrait.url}
+              alt={hero.portrait.alt || 'Vereador Maurílio Moreira'}
+              width={hero.portrait.width ?? 1122}
+              height={hero.portrait.height ?? 1402}
+              priority
+              sizes="(max-width: 1024px) 85vw, 50vw"
+              placeholder={hero.portrait.lqip ? 'blur' : 'empty'}
+              blurDataURL={hero.portrait.lqip}
+              className="h-auto w-auto max-h-[66vh] object-contain object-bottom drop-shadow-2xl lg:max-h-[44rem]"
+            />
+          )}
 
           {/* Selo flutuante da conquista */}
           <motion.div
@@ -107,13 +112,13 @@ export function Hero() {
           >
             <span className="inline-flex items-center gap-1.5 self-start whitespace-nowrap rounded-full bg-[#e7f7ee] px-2.5 py-[5px] text-[11px] font-extrabold uppercase tracking-[0.05em] text-[#0b7a3e]">
               <Check className="h-3.5 w-3.5 shrink-0" />
-              Aprovada por unanimidade
+              {hero?.seloBadge}
             </span>
             <span className="mt-3 block font-sans text-[15px] font-bold leading-[1.25] text-ink">
-              Independência para mulheres vítimas de violência
+              {hero?.seloTitle}
             </span>
             <span className="mt-2 block text-[11.5px] text-ink-soft">
-              Lei nº 32/26 · 19/05/2026
+              {hero?.seloMeta}
             </span>
           </motion.div>
         </div>

@@ -1,7 +1,7 @@
 import { Accessibility, HeartPulse, Handshake, Fish } from "lucide-react";
 import { SectionIntro } from "@/components/ui/SectionIntro";
 import { Reveal } from "@/components/ui/Reveal";
-import { bandeiras } from "@/lib/content";
+import type { BandeiraDoc } from "@/lib/sanity/types";
 
 const icons = {
   inclusao: Accessibility,
@@ -10,9 +10,9 @@ const icons = {
   pesca: Fish,
 } as const;
 
-export function Bandeiras() {
-  const featured = bandeiras.filter((b) => b.featured);
-  const secondary = bandeiras.filter((b) => !b.featured);
+export function Bandeiras({ items }: { items: BandeiraDoc[] }) {
+  const featured = items.filter((b) => b.featured);
+  const secondary = items.filter((b) => !b.featured);
 
   return (
     <section id="bandeiras" className="scroll-mt-20 bg-mist">
@@ -28,7 +28,7 @@ export function Bandeiras() {
           {featured.map((b, i) => {
             const Icon = icons[b.icon];
             return (
-              <Reveal key={b.id} delay={i * 0.08}>
+              <Reveal key={b._id} delay={i * 0.08}>
                 <article className="relative flex h-full flex-col gap-4 overflow-hidden rounded-2xl bg-gradient-to-br from-petroleo to-teal-600 p-7 text-white shadow-lg lg:p-9">
                   <span aria-hidden className="pointer-events-none absolute -right-12 -top-12 h-44 w-44 rounded-full bg-ciano/15 blur-2xl" />
                   <span className="grid h-14 w-14 place-items-center rounded-xl bg-ciano/20 text-ciano">
@@ -59,7 +59,7 @@ export function Bandeiras() {
           {secondary.map((b, i) => {
             const Icon = icons[b.icon];
             return (
-              <Reveal key={b.id} delay={i * 0.08}>
+              <Reveal key={b._id} delay={i * 0.08}>
                 <article className="flex h-full items-start gap-4 rounded-2xl border border-line bg-white p-6">
                   <span className="grid h-12 w-12 shrink-0 place-items-center rounded-lg bg-teal/10 text-teal">
                     <Icon className="h-6 w-6" />

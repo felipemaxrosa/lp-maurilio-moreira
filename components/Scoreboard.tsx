@@ -7,7 +7,8 @@ import { ArrowRight } from "lucide-react";
 import { SectionIntro } from "@/components/ui/SectionIntro";
 import { MandateCard } from "@/components/MandateCard";
 import { Lightbox } from "@/components/ui/Lightbox";
-import { mandateCards, categoryLabels, type MandateCategory } from "@/lib/content";
+import { categoryLabels, type MandateCategory } from "@/lib/content";
+import type { MandateCardDoc } from "@/lib/sanity/types";
 
 type Filter = "todas" | MandateCategory;
 
@@ -20,6 +21,7 @@ const filters: { key: Filter; label: string }[] = [
 ];
 
 type Props = {
+  cards: MandateCardDoc[];
   /** Mostra só os N primeiros cards (home). Sem limite = todos. */
   limit?: number;
   showFilters?: boolean;
@@ -28,14 +30,14 @@ type Props = {
   moreHref?: string;
 };
 
-export function Scoreboard({ limit, showFilters = true, showIntro = true, moreHref }: Props) {
+export function Scoreboard({ cards, limit, showFilters = true, showIntro = true, moreHref }: Props) {
   const [active, setActive] = useState<Filter>("todas");
   const [doc, setDoc] = useState<{ src: string; alt: string } | null>(null);
 
   const visible = useMemo(() => {
-    const base = active === "todas" ? mandateCards : mandateCards.filter((c) => c.category === active);
+    const base = active === "todas" ? cards : cards.filter((c) => c.category === active);
     return limit ? base.slice(0, limit) : base;
-  }, [active, limit]);
+  }, [active, limit, cards]);
 
   return (
     <section id="mandato" className="scroll-mt-20 bg-white">
@@ -80,7 +82,7 @@ export function Scoreboard({ limit, showFilters = true, showIntro = true, moreHr
           className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
           {visible.map((card) => (
-            <MandateCard key={card.id} card={card} onOpenDoc={(src, alt) => setDoc({ src, alt })} />
+            <MandateCard key={card._id} card={card} onOpenDoc={(src, alt) => setDoc({ src, alt })} />
           ))}
         </motion.div>
 

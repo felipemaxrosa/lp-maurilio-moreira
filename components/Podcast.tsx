@@ -1,11 +1,16 @@
 import { SectionIntro } from "@/components/ui/SectionIntro";
 import { Reveal } from "@/components/ui/Reveal";
 import { PodcastPlayer } from "@/components/PodcastPlayer";
-import { socials, episodes } from "@/lib/content";
+import type { EpisodeDoc } from "@/lib/sanity/types";
 
-type Props = { teaser?: boolean; showIntro?: boolean };
+type Props = {
+  episodes: EpisodeDoc[];
+  channelUrl: string;
+  teaser?: boolean;
+  showIntro?: boolean;
+};
 
-export function Podcast({ teaser = false, showIntro = true }: Props) {
+export function Podcast({ episodes, channelUrl, teaser = false, showIntro = true }: Props) {
   return (
     <section id="podcast" className="scroll-mt-20 bg-dark">
       <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
@@ -21,7 +26,7 @@ export function Podcast({ teaser = false, showIntro = true }: Props) {
         <Reveal className={showIntro ? "mt-10" : ""}>
           <PodcastPlayer
             episodes={episodes}
-            channelUrl={socials.youtube}
+            channelUrl={channelUrl}
             showPlaylist={!teaser}
             moreHref={teaser ? "/podcast" : undefined}
           />

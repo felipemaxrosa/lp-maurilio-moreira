@@ -4,10 +4,10 @@ import { useState } from "react";
 import Link from "next/link";
 import { Play, ArrowRight } from "lucide-react";
 import { YoutubeIcon } from "@/components/ui/BrandIcons";
-import type { Episode } from "@/lib/content";
+import type { EpisodeDoc } from "@/lib/sanity/types";
 
 type Props = {
-  episodes: Episode[];
+  episodes: EpisodeDoc[];
   channelUrl: string;
   /** false = modo teaser (home): só o destaque + botões, sem a playlist lateral. */
   showPlaylist?: boolean;
@@ -32,7 +32,7 @@ export function PodcastPlayer({ episodes, channelUrl, showPlaylist = true, moreH
       <div className="relative aspect-video overflow-hidden rounded-2xl border border-white/10 bg-dark-700">
         {playing ? (
           <iframe
-            key={current.id}
+            key={current._id}
             className="absolute inset-0 h-full w-full"
             src={`https://www.youtube-nocookie.com/embed/${current.youtubeId}?autoplay=1&rel=0`}
             title={`${current.title} — Maurílio Convida`}
@@ -77,7 +77,7 @@ export function PodcastPlayer({ episodes, channelUrl, showPlaylist = true, moreH
           <span className="u-eyebrow text-white/50">Episódios recentes</span>
           <ul className="flex flex-col gap-3">
             {episodes.map((ep, i) => (
-              <li key={ep.id}>
+              <li key={ep._id}>
                 <button
                   type="button"
                   onClick={() => open(i)}

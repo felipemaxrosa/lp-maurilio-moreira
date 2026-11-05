@@ -7,8 +7,9 @@ import { Menu, X } from "lucide-react";
 import { nav } from "@/lib/content";
 import { whatsappLink, DEFAULT_WA_MESSAGE } from "@/lib/whatsapp";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
+import type { SiteSettings } from "@/lib/sanity/types";
 
-export function Header() {
+export function Header({ settings }: { settings: SiteSettings }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -30,17 +31,19 @@ export function Header() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:h-20 lg:px-8">
         {/* Logo */}
         <Link href="/" onClick={close} className="flex items-center gap-3" aria-label="Maurílio Moreira — início">
-          <Image
-            src="/brasao-caraguatatuba.png"
-            alt="Brasão de Caraguatatuba"
-            width={40}
-            height={40}
-            className="h-10 w-auto drop-shadow-sm"
-            priority
-          />
+          {settings?.logo?.url && (
+            <Image
+              src={settings.logo.url}
+              alt={settings.logo.alt || "Brasão de Caraguatatuba"}
+              width={40}
+              height={40}
+              className="h-10 w-auto drop-shadow-sm"
+              priority
+            />
+          )}
           <span className="flex flex-col leading-none">
-            <span className="font-display text-base font-extrabold tracking-tight text-white">Maurílio Moreira</span>
-            <span className="u-eyebrow mt-0.5 text-[0.62rem] text-ciano">Vereador · AGIR</span>
+            <span className="font-display text-base font-extrabold tracking-tight text-white">{settings?.brandName}</span>
+            <span className="u-eyebrow mt-0.5 text-[0.62rem] text-ciano">{settings?.brandEyebrow}</span>
           </span>
         </Link>
 

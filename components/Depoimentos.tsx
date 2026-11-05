@@ -1,9 +1,9 @@
 import { Quote, MapPin } from "lucide-react";
 import { SectionIntro } from "@/components/ui/SectionIntro";
 import { Reveal } from "@/components/ui/Reveal";
-import { depoimentos } from "@/lib/content";
+import type { DepoimentoDoc } from "@/lib/sanity/types";
 
-export function Depoimentos() {
+export function Depoimentos({ items }: { items: DepoimentoDoc[] }) {
   return (
     <section id="depoimentos" className="scroll-mt-20 bg-white">
       <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
@@ -14,8 +14,8 @@ export function Depoimentos() {
         />
 
         <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {depoimentos.map((d, i) => (
-            <Reveal key={d.quote} delay={i * 0.08}>
+          {items.map((d, i) => (
+            <Reveal key={d._id} delay={i * 0.08}>
               <figure className="flex h-full flex-col gap-4 rounded-2xl border border-line bg-white p-7 shadow-sm">
                 <Quote className="h-8 w-8 shrink-0 text-ciano" aria-hidden />
                 <blockquote className="flex-1 leading-relaxed text-ink-soft">
