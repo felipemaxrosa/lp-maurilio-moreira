@@ -20,6 +20,10 @@
 # production
 /build
 
+# sanity studio build artifacts (sanity deploy)
+/dist/
+/.sanity/
+
 # misc
 .DS_Store
 *.pem
