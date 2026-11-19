@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Lock, Loader2 } from "lucide-react";
 import { whatsappLink, demandMessage } from "@/lib/whatsapp";
+import { trackContactSubmit } from "@/lib/analytics";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
 
 type Fields = { nome: string; bairro: string; telefone: string; mensagem: string };
@@ -21,6 +22,7 @@ export function WhatsappForm() {
     e.preventDefault();
     if (!valid || sending) return;
     setSending(true);
+    trackContactSubmit({ bairro: values.bairro.trim() });
     const url = whatsappLink(demandMessage(values));
     window.open(url, "_blank", "noopener,noreferrer");
     setTimeout(() => setSending(false), 1200);

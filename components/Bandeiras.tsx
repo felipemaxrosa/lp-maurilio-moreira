@@ -1,6 +1,7 @@
 import { Accessibility, HeartPulse, Handshake, Fish } from "lucide-react";
 import { SectionIntro } from "@/components/ui/SectionIntro";
 import { Reveal } from "@/components/ui/Reveal";
+import { SectionView } from "@/components/analytics/SectionView";
 import type { BandeiraDoc } from "@/lib/sanity/types";
 
 const icons = {
@@ -16,6 +17,7 @@ export function Bandeiras({ items }: { items: BandeiraDoc[] }) {
 
   return (
     <section id="bandeiras" className="scroll-mt-20 bg-mist">
+      <SectionView name="bandeiras" />
       <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
         <SectionIntro
           eyebrow="Bandeiras do Mandato"

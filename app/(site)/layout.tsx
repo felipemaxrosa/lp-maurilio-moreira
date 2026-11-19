@@ -5,6 +5,8 @@ import { SmoothScroll } from "@/components/SmoothScroll";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingWhatsapp } from "@/components/FloatingWhatsapp";
+import { ConsentBanner } from "@/components/consent/ConsentBanner";
+import { Analytics } from "@/components/consent/Analytics";
 import { sanityFetch } from "@/lib/sanity/fetch";
 import {
   contactInfoQuery,
@@ -87,6 +89,8 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         <main className="flex-1">{children}</main>
         <Footer settings={settings} contact={contact} />
         <FloatingWhatsapp />
+        <ConsentBanner />
+        <Analytics />
       </body>
     </html>
   );

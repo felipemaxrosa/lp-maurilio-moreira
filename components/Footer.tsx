@@ -1,6 +1,8 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Building2 } from "lucide-react";
 import { InstagramIcon, FacebookIcon, YoutubeIcon } from "@/components/ui/BrandIcons";
+import { ManageCookiesButton } from "@/components/consent/ManageCookiesButton";
 import { nav } from "@/lib/content";
 import type { ContactInfo, SiteSettings } from "@/lib/sanity/types";
 
@@ -76,9 +78,15 @@ export function Footer({ settings, contact }: Props) {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-2 border-t border-white/10 pt-6 text-xs text-white/60 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 flex flex-col gap-3 border-t border-white/10 pt-6 text-xs text-white/60 sm:flex-row sm:items-center sm:justify-between">
           <span>{settings?.footerCopyright}</span>
-          <span>{settings?.footerLegal}</span>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            {settings?.footerLegal && <span>{settings.footerLegal}</span>}
+            <Link href="/privacidade" className="transition-colors hover:text-ciano">
+              Privacidade e Cookies
+            </Link>
+            <ManageCookiesButton />
+          </div>
         </div>
 
         <div className="mt-4 text-center text-xs text-white/55">

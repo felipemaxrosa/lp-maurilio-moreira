@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Play, ArrowRight } from "lucide-react";
 import { YoutubeIcon } from "@/components/ui/BrandIcons";
+import { trackPodcastPlay } from "@/lib/analytics";
 import type { EpisodeDoc } from "@/lib/sanity/types";
 
 type Props = {
@@ -24,6 +25,7 @@ export function PodcastPlayer({ episodes, channelUrl, showPlaylist = true, moreH
   const open = (i: number) => {
     setActive(i);
     setPlaying(true);
+    trackPodcastPlay(episodes[i]?.title ?? episodes[i]?.youtubeId ?? "");
   };
 
   return (
@@ -42,7 +44,10 @@ export function PodcastPlayer({ episodes, channelUrl, showPlaylist = true, moreH
         ) : (
           <button
             type="button"
-            onClick={() => setPlaying(true)}
+            onClick={() => {
+              setPlaying(true);
+              trackPodcastPlay(current.title ?? current.youtubeId);
+            }}
             aria-label={`Assistir: ${current.title}`}
             className="group absolute inset-0 flex flex-col justify-end text-left"
           >

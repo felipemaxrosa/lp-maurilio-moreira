@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { nav } from "@/lib/content";
 import { whatsappLink, DEFAULT_WA_MESSAGE } from "@/lib/whatsapp";
+import { trackWhatsappClick } from "@/lib/analytics";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
 import type { SiteSettings } from "@/lib/sanity/types";
 
@@ -65,6 +66,7 @@ export function Header({ settings }: { settings: SiteSettings }) {
           href={whatsappLink(DEFAULT_WA_MESSAGE)}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => trackWhatsappClick("header")}
           className="hidden items-center gap-2 rounded-md bg-whatsapp px-4 py-2.5 text-sm font-bold text-whatsapp-ink shadow-md transition-transform hover:-translate-y-0.5 lg:inline-flex"
         >
           <WhatsAppIcon className="h-4 w-4" />
@@ -101,6 +103,10 @@ export function Header({ settings }: { settings: SiteSettings }) {
               href={whatsappLink(DEFAULT_WA_MESSAGE)}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => {
+                trackWhatsappClick("header_mobile");
+                close();
+              }}
               className="mt-2 inline-flex items-center justify-center gap-2 rounded-md bg-whatsapp px-4 py-3.5 text-base font-bold text-whatsapp-ink"
             >
               <WhatsAppIcon className="h-5 w-5" />

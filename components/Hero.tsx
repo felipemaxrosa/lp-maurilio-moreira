@@ -10,6 +10,7 @@ import {
 } from 'motion/react';
 import { Landmark, Play, Check } from 'lucide-react';
 import { whatsappLink, DEFAULT_WA_MESSAGE } from '@/lib/whatsapp';
+import { trackWhatsappClick } from '@/lib/analytics';
 import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon';
 import type { HeroSettings } from '@/lib/sanity/types';
 
@@ -63,6 +64,7 @@ export function Hero({ hero }: { hero: HeroSettings }) {
               href={whatsappLink(DEFAULT_WA_MESSAGE)}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackWhatsappClick('hero')}
               className="inline-flex items-center justify-center gap-2 rounded-md bg-whatsapp px-6 py-4 text-base font-bold text-whatsapp-ink shadow-xl shadow-whatsapp/20 transition-transform hover:-translate-y-0.5"
             >
               <WhatsAppIcon className="h-5 w-5" />
