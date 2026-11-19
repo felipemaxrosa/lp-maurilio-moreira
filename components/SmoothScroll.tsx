@@ -1,17 +1,22 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 
 const HEADER_OFFSET = 80; // header fixo (lg:h-20) — compensa o scroll da âncora
 
-/** Smooth-scroll leve (Lenis) + navegação por âncora (#secao). Desliga para quem prefere menos movimento. */
+/** Smooth-scroll leve (Lenis) + navegação por âncora (#secao) + reset ao topo na troca de rota. Desliga para quem prefere menos movimento. */
 export function SmoothScroll() {
+  const lenisRef = useRef<Lenis | null>(null);
+  const pathname = usePathname();
+
   useEffect(() => {
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReduced) return;
 
     const lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+    lenisRef.current = lenis;
     (window as unknown as { lenis?: Lenis }).lenis = lenis;
 
     let rafId = 0;
@@ -88,9 +93,19 @@ export function SmoothScroll() {
       document.removeEventListener("click", onClick);
       window.clearTimeout(pendingTimer);
       lenis.destroy();
+      lenisRef.current = null;
       delete (window as unknown as { lenis?: Lenis }).lenis;
     };
   }, []);
+
+  // Troca de rota: o Next reseta o scroll ao topo, mas o Lenis ignora isso.
+  // Forçamos o topo aqui — exceto quando a navegação aponta para uma âncora.
+  useEffect(() => {
+    const lenis = lenisRef.current;
+    if (!lenis) return;
+    if (window.location.hash) return; // âncora: o handler de clique cuida do scroll
+    lenis.scrollTo(0, { immediate: true });
+  }, [pathname]);
 
   return null;
 }
