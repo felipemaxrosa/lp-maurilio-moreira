@@ -12,7 +12,7 @@ type RevealProps = {
 };
 
 /** Revela o conteúdo com fade + leve subida ao entrar na viewport. Respeita prefers-reduced-motion. */
-export function Reveal({ children, className, delay = 0, y = 26, once = true }: RevealProps) {
+export function Reveal({ children, className, delay = 0, y = 16, once = true }: RevealProps) {
   const reduce = useReducedMotion();
 
   if (reduce) return <div className={className}>{children}</div>;
@@ -22,8 +22,10 @@ export function Reveal({ children, className, delay = 0, y = 26, once = true }: 
       className={className}
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once, amount: 0.2 }}
-      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
+      // margin positivo embaixo = dispara ~220px ANTES de entrar na viewport,
+      // então o conteúdo já está visível quando o usuário rola até ele.
+      viewport={{ once, margin: "0px 0px 220px 0px" }}
+      transition={{ duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </motion.div>
