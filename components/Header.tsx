@@ -30,11 +30,11 @@ export function Header({ settings }: { settings: SiteSettings }) {
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:h-20 lg:px-8">
         {/* Logo */}
-        <Link href="/" onClick={close} className="flex items-center gap-3" aria-label="Maurílio Moreira — início">
+        <Link href="/" onClick={close} className="flex items-center gap-3">
           {settings?.logo?.url && (
             <Image
               src={settings.logo.url}
-              alt={settings.logo.alt || "Brasão de Caraguatatuba"}
+              alt=""
               width={40}
               height={40}
               className="h-10 w-auto drop-shadow-sm"

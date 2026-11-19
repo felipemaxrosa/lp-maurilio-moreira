@@ -76,18 +76,18 @@ export function Footer({ settings, contact }: Props) {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-2 border-t border-white/10 pt-6 text-xs text-white/45 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 flex flex-col gap-2 border-t border-white/10 pt-6 text-xs text-white/60 sm:flex-row sm:items-center sm:justify-between">
           <span>{settings?.footerCopyright}</span>
           <span>{settings?.footerLegal}</span>
         </div>
 
-        <div className="mt-4 text-center text-xs text-white/35">
+        <div className="mt-4 text-center text-xs text-white/55">
           Desenvolvido por{" "}
           <a
             href="http://maxdigitalstudio.com.br/"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-medium text-white/55 transition-colors hover:text-ciano"
+            className="font-medium text-white/80 transition-colors hover:text-ciano"
           >
             Max Digital Studio
           </a>
