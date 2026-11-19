@@ -29,7 +29,7 @@ export default async function MandatoPage() {
         title="O trabalho não para no gabinete. Ele acontece nas ruas."
         subtitle="Todas as conquistas e ações recentes do nosso mandato por Caraguatatuba — do problema à solução."
       />
-      <Scoreboard cards={cards} showIntro={false} />
+      <Scoreboard cards={cards} showIntro={false} context="mandato" />
     </>
   );
 }

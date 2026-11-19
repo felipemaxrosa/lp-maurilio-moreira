@@ -7,6 +7,7 @@ import { ArrowRight } from "lucide-react";
 import { SectionIntro } from "@/components/ui/SectionIntro";
 import { MandateCard } from "@/components/MandateCard";
 import { Lightbox } from "@/components/ui/Lightbox";
+import { trackMandateFilter } from "@/lib/analytics";
 import { categoryLabels, type MandateCategory } from "@/lib/content";
 import type { MandateCardDoc } from "@/lib/sanity/types";
 
@@ -28,11 +29,14 @@ type Props = {
   showIntro?: boolean;
   /** Se presente, mostra o CTA "Ver todas as realizações" apontando pra esta rota. */
   moreHref?: string;
+  /** Onde o Placar está sendo exibido — usado nos eventos de analytics. */
+  context?: "home" | "mandato";
 };
 
-export function Scoreboard({ cards, limit, showFilters = true, showIntro = true, moreHref }: Props) {
+export function Scoreboard({ cards, limit, showFilters = true, showIntro = true, moreHref, context = "home" }: Props) {
   const [active, setActive] = useState<Filter>("todas");
   const [doc, setDoc] = useState<{ src: string; alt: string } | null>(null);
+  const location = context === "mandato" ? "placar_mandato" : "placar_home";
 
   const visible = useMemo(() => {
     const base = active === "todas" ? cards : cards.filter((c) => c.category === active);
@@ -58,7 +62,10 @@ export function Scoreboard({ cards, limit, showFilters = true, showIntro = true,
                 <button
                   key={f.key}
                   type="button"
-                  onClick={() => setActive(f.key)}
+                  onClick={() => {
+                    setActive(f.key);
+                    trackMandateFilter({ categoria: f.label, location });
+                  }}
                   aria-pressed={on}
                   className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
                     on
@@ -82,7 +89,7 @@ export function Scoreboard({ cards, limit, showFilters = true, showIntro = true,
           className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
           {visible.map((card) => (
-            <MandateCard key={card._id} card={card} onOpenDoc={(src, alt) => setDoc({ src, alt })} />
+            <MandateCard key={card._id} card={card} location={location} onOpenDoc={(src, alt) => setDoc({ src, alt })} />
           ))}
         </motion.div>
 

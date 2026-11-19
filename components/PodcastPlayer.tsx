@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Play, ArrowRight } from "lucide-react";
 import { YoutubeIcon } from "@/components/ui/BrandIcons";
-import { trackPodcastPlay } from "@/lib/analytics";
+import { trackPodcastPlay, trackPodcastSubscribe } from "@/lib/analytics";
 import type { EpisodeDoc } from "@/lib/sanity/types";
 
 type Props = {
@@ -21,11 +21,12 @@ export function PodcastPlayer({ episodes, channelUrl, showPlaylist = true, moreH
   const [active, setActive] = useState(0);
   const [playing, setPlaying] = useState(false);
   const current = episodes[active];
+  const location = showPlaylist ? "podcast_pagina" : "podcast_home";
 
   const open = (i: number) => {
     setActive(i);
     setPlaying(true);
-    trackPodcastPlay(episodes[i]?.title ?? episodes[i]?.youtubeId ?? "");
+    trackPodcastPlay({ episodio: episodes[i]?.title ?? episodes[i]?.youtubeId ?? "", location });
   };
 
   return (
@@ -46,7 +47,7 @@ export function PodcastPlayer({ episodes, channelUrl, showPlaylist = true, moreH
             type="button"
             onClick={() => {
               setPlaying(true);
-              trackPodcastPlay(current.title ?? current.youtubeId);
+              trackPodcastPlay({ episodio: current.title ?? current.youtubeId, location });
             }}
             aria-label={`Assistir: ${current.title}`}
             className="group absolute inset-0 flex flex-col justify-end text-left"
@@ -117,6 +118,7 @@ export function PodcastPlayer({ episodes, channelUrl, showPlaylist = true, moreH
             href={channelUrl}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackPodcastSubscribe({ location })}
             className="mt-1 inline-flex items-center justify-center gap-2 rounded-md bg-[#FF0000] px-5 py-3.5 text-base font-bold text-white transition-transform hover:-translate-y-0.5"
           >
             <YoutubeIcon className="h-5 w-5" />
@@ -139,6 +141,7 @@ export function PodcastPlayer({ episodes, channelUrl, showPlaylist = true, moreH
             href={channelUrl}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackPodcastSubscribe({ location })}
             className="inline-flex items-center justify-center gap-2 rounded-md bg-[#FF0000] px-5 py-3.5 text-base font-bold text-white transition-transform hover:-translate-y-0.5"
           >
             <YoutubeIcon className="h-5 w-5" />

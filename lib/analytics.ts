@@ -32,5 +32,21 @@ export const trackSectionView = (secao: string) =>
   track("section_view", { secao });
 
 /** Play em um episódio do podcast. */
-export const trackPodcastPlay = (episodio: string) =>
-  track("podcast_play", { episodio });
+export const trackPodcastPlay = (p: { episodio: string; location: string }) =>
+  track("podcast_play", p);
+
+/** Clique em "Inscreva-se no Canal Oficial" (YouTube). */
+export const trackPodcastSubscribe = (p: { location: string }) =>
+  track("podcast_subscribe", p);
+
+/** Clique num filtro de tema do Placar do Mandato (Leis, Asfalto, Mobilidade, Esporte). */
+export const trackMandateFilter = (p: { categoria: string; location: string }) =>
+  track("mandate_filter", p);
+
+/** Clique num CTA de um card do Placar (notícia, vídeo, documento ou rede social). */
+export const trackMandateClick = (p: {
+  item: string;
+  categoria: string;
+  tipo: "video" | "documento" | "noticia" | "rede_social";
+  location: string;
+}) => track("mandate_click", p);

@@ -3,6 +3,7 @@ import { Play, ArrowUpRight } from "lucide-react";
 import { TiltCard } from "@/components/ui/TiltCard";
 import { CardArt } from "@/components/ui/CardArt";
 import { InstagramIcon, FacebookIcon, YoutubeIcon } from "@/components/ui/BrandIcons";
+import { trackMandateClick } from "@/lib/analytics";
 import { categoryLabels } from "@/lib/content";
 import type { MandateCardDoc } from "@/lib/sanity/types";
 
@@ -23,9 +24,11 @@ function sourceMeta(url: string) {
 type Props = {
   card: MandateCardDoc;
   onOpenDoc: (src: string, alt: string) => void;
+  /** Onde o card está (home × página /mandato), para os eventos de analytics. */
+  location: string;
 };
 
-export function MandateCard({ card, onOpenDoc }: Props) {
+export function MandateCard({ card, onOpenDoc, location }: Props) {
   const isExternal = card.ctaHref?.startsWith("http") ?? false;
   const imageUrl = card.media.image?.url;
   const isDocWithImage = card.media.type === "document" && Boolean(imageUrl);
@@ -72,7 +75,15 @@ export function MandateCard({ card, onOpenDoc }: Props) {
             {isDocWithImage && card.ctaLabel ? (
               <button
                 type="button"
-                onClick={() => onOpenDoc(imageUrl!, card.media.image?.alt ?? card.title)}
+                onClick={() => {
+                  trackMandateClick({
+                    item: card.title,
+                    categoria: categoryLabels[card.category],
+                    tipo: "documento",
+                    location,
+                  });
+                  onOpenDoc(imageUrl!, card.media.image?.alt ?? card.title);
+                }}
                 className="inline-flex items-center gap-1.5 text-sm font-bold text-teal transition-colors hover:text-petroleo"
               >
                 {card.ctaLabel}
@@ -82,6 +93,14 @@ export function MandateCard({ card, onOpenDoc }: Props) {
               <a
                 href={card.ctaHref}
                 {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                onClick={() =>
+                  trackMandateClick({
+                    item: card.title,
+                    categoria: categoryLabels[card.category],
+                    tipo: card.media.type === "video" ? "video" : "noticia",
+                    location,
+                  })
+                }
                 className="inline-flex items-center gap-1.5 text-sm font-bold text-teal transition-colors hover:text-petroleo"
               >
                 {card.ctaLabel}
@@ -96,6 +115,14 @@ export function MandateCard({ card, onOpenDoc }: Props) {
                     href={card.sourceUrl}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() =>
+                      trackMandateClick({
+                        item: card.title,
+                        categoria: categoryLabels[card.category],
+                        tipo: "rede_social",
+                        location,
+                      })
+                    }
                     className={`inline-flex items-center gap-1.5 text-sm font-semibold text-ink-soft transition-colors ${hover}`}
                   >
                     <Icon className="h-4 w-4" />
