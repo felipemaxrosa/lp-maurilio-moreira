@@ -1,5 +1,3 @@
-// ⚠️ Texto-base de conformidade (LGPD) — revisar com assessoria jurídica antes de publicar.
-// Confirmar: nome/qualificação do controlador, encarregado (DPO), prazos de retenção e canal de contato.
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { PageHero } from "@/components/ui/PageHero";
