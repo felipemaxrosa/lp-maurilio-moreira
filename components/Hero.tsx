@@ -41,7 +41,7 @@ export function Hero({ hero }: { hero: HeroSettings }) {
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Coluna da copy — alinhada ao topo, logo abaixo da navbar */}
-        <div className="relative z-10 flex flex-col items-start gap-6 pt-24 pb-12 lg:min-h-[76vh] lg:max-h-[50rem] lg:max-w-[54%] lg:justify-start lg:pb-28 lg:pt-32">
+        <div className="relative z-10 flex flex-col items-start gap-6 pt-24 pb-12 lg:min-h-[min(76vh,44rem)] lg:max-h-[44rem] lg:max-w-[54%] lg:justify-start lg:pb-28 lg:pt-32">
           <span className="u-eyebrow inline-flex items-center gap-2 rounded-full border border-ciano/30 bg-ciano/10 px-4 py-2 text-ciano">
             <Landmark className="h-4 w-4" />
             Legislatura 2025–2028 · Caraguatatuba/SP

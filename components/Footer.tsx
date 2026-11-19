@@ -80,6 +80,18 @@ export function Footer({ settings, contact }: Props) {
           <span>{settings?.footerCopyright}</span>
           <span>{settings?.footerLegal}</span>
         </div>
+
+        <div className="mt-4 text-center text-xs text-white/35">
+          Desenvolvido por{" "}
+          <a
+            href="http://maxdigitalstudio.com.br/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-white/55 transition-colors hover:text-ciano"
+          >
+            Max Digital Studio
+          </a>
+        </div>
       </div>
     </footer>
   );
