@@ -1,46 +1,38 @@
-"use client";
-
-import { useEffect, useLayoutEffect, useState } from "react";
-import { motion, useReducedMotion } from "motion/react";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 type RevealProps = {
   children: ReactNode;
   className?: string;
+  /** Atraso da transição, em segundos (para escalonar itens de uma grade). */
   delay?: number;
+  /** Deslocamento vertical inicial, em px (default 26). */
   y?: number;
-  once?: boolean;
 };
 
-// Layout effect no cliente (roda antes do paint); no servidor vira no-op.
-const useIsoLayoutEffect =
-  typeof window !== "undefined" ? useLayoutEffect : useEffect;
-
 /**
- * Revela o conteúdo com fade + leve subida ao entrar na viewport — **apenas no
- * desktop (≥1024px)**. No mobile e com prefers-reduced-motion o conteúdo é
- * renderizado direto (visível), pra nunca aparecer vão em branco no scroll.
+ * Revela o conteúdo com fade + leve subida ao entrar na viewport — em **CSS**.
+ *
+ * O conteúdo é renderizado **visível por padrão** (server component, sem JS no
+ * caminho). O estado escondido/animado só é aplicado quando o script inline
+ * (`RevealScript`) confirma suporte e adiciona `.is-visible` via observer. Por
+ * isso nunca aparece vão em branco no primeiro load/hard reload — mobile ou
+ * desktop. Ver regras `.reveal` em `app/globals.css`.
  */
-export function Reveal({ children, className, delay = 0, y = 26, once = true }: RevealProps) {
-  const reduce = useReducedMotion();
-  const [desktop, setDesktop] = useState(false);
-
-  useIsoLayoutEffect(() => {
-    setDesktop(window.matchMedia("(min-width: 1024px)").matches);
-  }, []);
-
-  // SSR + 1º paint + mobile + reduced-motion: sem animação, conteúdo visível.
-  if (reduce || !desktop) return <div className={className}>{children}</div>;
+export function Reveal({ children, className, delay = 0, y }: RevealProps) {
+  const style: Record<string, string> = {};
+  if (delay) style["--reveal-delay"] = `${delay}s`;
+  if (y != null) style["--reveal-y"] = `${y}px`;
+  const hasStyle = Object.keys(style).length > 0;
 
   return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once, amount: 0.2 }}
-      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
+    <div
+      className={className ? `reveal ${className}` : "reveal"}
+      style={hasStyle ? (style as CSSProperties) : undefined}
+      // O observer inline (RevealScript) adiciona `is-visible` antes da hidratação
+      // nos elementos já na viewport — mutação intencional pré-paint.
+      suppressHydrationWarning
     >
       {children}
-    </motion.div>
+    </div>
   );
 }

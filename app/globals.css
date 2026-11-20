@@ -140,6 +140,25 @@ p {
 }
 .u-float { animation: float-soft 6s ease-in-out infinite; }
 
+/* ---- Reveal ao rolar (fade + leve subida) ----
+   Regra de ouro: o conteúdo é VISÍVEL por padrão. O estado escondido só é
+   aplicado quando o JS confirmou suporte (classe `js-reveal` adicionada no
+   <html> por um script inline pré-paint) e um IntersectionObserver inline
+   adiciona `.is-visible` ao entrar na viewport. Assim o conteúdo nunca espera
+   o bundle JS — não há vão em branco no primeiro load/hard reload. */
+html.js-reveal .reveal {
+  opacity: 0;
+  transform: translateY(var(--reveal-y, 26px));
+  transition:
+    opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0s);
+}
+html.js-reveal .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
 /* Respeita quem prefere menos movimento */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -147,5 +166,12 @@ p {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
+  }
+  /* Defesa extra: mesmo se `js-reveal` existir, conteúdo fica visível e estático. */
+  html.js-reveal .reveal,
+  html.js-reveal .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }

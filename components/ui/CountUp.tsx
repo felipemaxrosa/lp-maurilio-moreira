@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { animate, useInView, useReducedMotion } from "motion/react";
 
 type CountUpProps = {
   to: number;
@@ -10,25 +9,57 @@ type CountUpProps = {
   format?: (n: number) => string;
 };
 
-/** Conta de 0 até `to` quando entra na tela. */
+/**
+ * Mostra o valor final `to` por padrão (SSR e antes de hidratar — nunca pisca
+ * "0" na primeira carga). Quando o elemento entra na tela vindo de fora da
+ * viewport, faz a contagem 0 → `to` como realce. Se já estiver visível no load
+ * (acima da dobra) ou com prefers-reduced-motion, mantém o valor final direto.
+ */
 export function CountUp({ to, duration = 1.6, className, format }: CountUpProps) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.6 });
-  const reduce = useReducedMotion();
-  const [animated, setAnimated] = useState(0);
+  const [value, setValue] = useState(to);
+  const done = useRef(false);
 
   useEffect(() => {
-    if (!inView || reduce) return;
-    const controls = animate(0, to, {
-      duration,
-      ease: "easeOut",
-      onUpdate: (v) => setAnimated(Math.round(v)),
-    });
-    return () => controls.stop();
-  }, [inView, to, duration, reduce]);
+    const el = ref.current;
+    if (!el || done.current) return;
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
 
-  // Com movimento reduzido, mostra o valor final direto (sem setState no efeito).
-  const value = reduce ? to : animated;
+    const run = () => {
+      if (done.current) return;
+      done.current = true;
+      const start = performance.now();
+      setValue(0);
+      const tick = (now: number) => {
+        const p = Math.min((now - start) / (duration * 1000), 1);
+        const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
+        setValue(Math.round(eased * to));
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+
+    // Já visível no load (acima da dobra): mantém o valor final, sem contar
+    // (evita o flash de voltar a 0). Conta só quando rolado para dentro da tela.
+    const rect = el.getBoundingClientRect();
+    const inViewAtMount = rect.top < window.innerHeight && rect.bottom > 0;
+    if (inViewAtMount) return;
+
+    if (!("IntersectionObserver" in window)) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            run();
+            io.disconnect();
+          }
+        }
+      },
+      { threshold: 0.6 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [to, duration]);
 
   return (
     <span ref={ref} className={className}>

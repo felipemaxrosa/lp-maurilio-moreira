@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Montserrat, Inter } from "next/font/google";
 import "../globals.css";
+import { RevealScript } from "@/components/RevealScript";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -19,18 +20,22 @@ import type {
   SiteSettings,
 } from "@/lib/sanity/types";
 
+// display: "optional" evita o layout shift (CLS) do swap de fonte: o navegador
+// usa o fallback métrico do next/font e só aplica a web font se ela estiver
+// pronta em ~100ms; senão mantém o fallback nesta carga (sem reflow). Com o
+// preload do next/font, na maioria das conexões a fonte já chega a tempo.
 const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
   weight: ["600", "700", "800", "900"],
-  display: "swap",
+  display: "optional",
 });
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
-  display: "swap",
+  display: "optional",
 });
 
 const SITE_URL = "https://mauriliomoreira.com.br";
@@ -82,8 +87,13 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
   ]);
 
   return (
-    <html lang="pt-BR" className={`${montserrat.variable} ${inter.variable} h-full antialiased`}>
+    <html
+      lang="pt-BR"
+      className={`${montserrat.variable} ${inter.variable} h-full antialiased`}
+      suppressHydrationWarning
+    >
       <body className="min-h-full flex flex-col bg-white text-ink">
+        <RevealScript />
         <SmoothScroll />
         <Header settings={settings} />
         <main className="flex-1">{children}</main>

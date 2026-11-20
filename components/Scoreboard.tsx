@@ -1,8 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import type { CSSProperties } from "react";
 import Link from "next/link";
-import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { SectionIntro } from "@/components/ui/SectionIntro";
 import { MandateCard } from "@/components/MandateCard";
@@ -80,18 +80,19 @@ export function Scoreboard({ cards, limit, showFilters = true, showIntro = true,
           </div>
         )}
 
-        {/* Grid de cards (fade de 300ms ao trocar filtro) */}
-        <motion.div
+        {/* Grid de cards. Visível por padrão (sem opacity:0 no HTML); o reveal em
+            CSS cuida do fade de entrada. `key={active}` remonta ao trocar filtro,
+            e o observer re-revela em ~1 frame → re-fade sutil no troco de filtro. */}
+        <div
           key={active}
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-          className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          style={{ "--reveal-y": "12px" } as CSSProperties}
+          className="reveal mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          suppressHydrationWarning
         >
           {visible.map((card) => (
             <MandateCard key={card._id} card={card} location={location} onOpenDoc={(src, alt) => setDoc({ src, alt })} />
           ))}
-        </motion.div>
+        </div>
 
         {moreHref && (
           <div className="mt-10 flex justify-center">

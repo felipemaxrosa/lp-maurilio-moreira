@@ -36,9 +36,9 @@ export function Header({ settings }: { settings: SiteSettings }) {
             <Image
               src={settings.logo.url}
               alt=""
-              width={40}
+              width={39}
               height={40}
-              className="h-10 w-auto drop-shadow-sm"
+              className="shrink-0 drop-shadow-sm"
               priority
             />
           )}

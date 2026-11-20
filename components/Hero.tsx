@@ -1,13 +1,7 @@
 'use client';
 
-import { useRef } from 'react';
+import type { CSSProperties } from 'react';
 import Image from 'next/image';
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useReducedMotion,
-} from 'motion/react';
 import { Landmark, Play, Check } from 'lucide-react';
 import { whatsappLink, DEFAULT_WA_MESSAGE } from '@/lib/whatsapp';
 import { trackWhatsappClick } from '@/lib/analytics';
@@ -15,31 +9,11 @@ import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon';
 import type { HeroSettings } from '@/lib/sanity/types';
 
 export function Hero({ hero }: { hero: HeroSettings }) {
-  const ref = useRef<HTMLElement>(null);
-  const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start start', 'end start'],
-  });
-  const glowY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 90]);
-
   return (
     <section
       id="inicio"
-      ref={ref}
       className="relative isolate overflow-hidden bg-gradient-to-br from-petroleo via-petroleo to-petroleo-900"
     >
-      {/* Brilhos decorativos */}
-      <motion.div
-        aria-hidden
-        style={{ y: glowY }}
-        className="pointer-events-none absolute -right-24 -top-24 h-[32rem] w-[32rem] rounded-full bg-ciano/20 blur-[120px]"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -left-20 bottom-10 h-80 w-80 rounded-full bg-teal/30 blur-[110px]"
-      />
-
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Coluna da copy — alinhada ao topo, logo abaixo da navbar */}
         <div className="relative z-10 flex flex-col items-start gap-6 pt-24 pb-12 lg:min-h-[min(82vh,48rem)] lg:max-h-[48rem] lg:max-w-[54%] lg:justify-start lg:pb-28 lg:pt-32">
@@ -107,12 +81,12 @@ export function Hero({ hero }: { hero: HeroSettings }) {
             />
           )}
 
-          {/* Selo flutuante da conquista */}
-          <motion.div
-            initial={reduce ? false : { opacity: 0, y: 20 }}
-            animate={reduce ? {} : { opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.6 }}
-            className="absolute bottom-6 left-2 w-[19.5rem] max-w-[82%] rounded-[4px] border-l-4 border-whatsapp bg-white px-[18px] py-4 shadow-2xl lg:bottom-16 lg:-left-6"
+          {/* Selo flutuante da conquista — entrada via reveal em CSS (visível por
+              padrão; anima ao carregar sem depender do bundle JS). */}
+          <div
+            style={{ "--reveal-y": "20px", "--reveal-delay": "0.3s" } as CSSProperties}
+            className="reveal absolute bottom-6 left-2 w-[19.5rem] max-w-[82%] rounded-[4px] border-l-4 border-whatsapp bg-white px-[18px] py-4 shadow-2xl lg:bottom-16 lg:-left-6"
+            suppressHydrationWarning
           >
             <span className="inline-flex items-center gap-1.5 self-start whitespace-nowrap rounded-full bg-[#e7f7ee] px-2.5 py-[5px] text-[11px] font-extrabold uppercase tracking-[0.05em] text-[#0b7a3e]">
               <Check className="h-3.5 w-3.5 shrink-0" />
@@ -124,7 +98,7 @@ export function Hero({ hero }: { hero: HeroSettings }) {
             <span className="mt-2 block text-[11.5px] text-ink-soft">
               {hero?.seloMeta}
             </span>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
