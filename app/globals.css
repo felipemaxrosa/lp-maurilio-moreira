@@ -141,22 +141,22 @@ p {
 .u-float { animation: float-soft 6s ease-in-out infinite; }
 
 /* ---- Reveal ao rolar (fade + leve subida) ----
-   Regra de ouro: o conteúdo é VISÍVEL por padrão. O estado escondido só é
-   aplicado quando o JS confirmou suporte (classe `js-reveal` adicionada no
-   <html> por um script inline pré-paint) e um IntersectionObserver inline
-   adiciona `.is-visible` ao entrar na viewport. Assim o conteúdo nunca espera
-   o bundle JS — não há vão em branco no primeiro load/hard reload. */
-html.js-reveal .reveal {
+   Regra de ouro: o conteúdo é VISÍVEL por padrão. O script inline (RevealScript)
+   só adiciona `reveal-off` nos elementos que COMEÇAM abaixo da dobra — esconde o
+   que o usuário não vê ainda e anima ao entrar na viewport (classe `is-visible`).
+   O conteúdo na/acima da dobra nunca é escondido, então nunca pisca em branco no
+   primeiro paint (vale pra home e pra sub-rotas como /mandato). */
+.reveal.reveal-off {
   opacity: 0;
   transform: translateY(var(--reveal-y, 26px));
+}
+.reveal.reveal-off.is-visible {
+  opacity: 1;
+  transform: none;
   transition:
     opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
     transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
   transition-delay: var(--reveal-delay, 0s);
-}
-html.js-reveal .reveal.is-visible {
-  opacity: 1;
-  transform: none;
 }
 
 /* Respeita quem prefere menos movimento */
@@ -167,9 +167,9 @@ html.js-reveal .reveal.is-visible {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
-  /* Defesa extra: mesmo se `js-reveal` existir, conteúdo fica visível e estático. */
-  html.js-reveal .reveal,
-  html.js-reveal .reveal.is-visible {
+  /* Defesa extra: mesmo se `reveal-off` for aplicado, conteúdo fica visível e estático. */
+  .reveal.reveal-off,
+  .reveal.reveal-off.is-visible {
     opacity: 1;
     transform: none;
     transition: none;
